@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --primary-bg: #f4f4f9;  
+  --primary-text: #333333; 
+  --primary-color: #6366F1; 
+  --button-bg: #ff7f50;    
+  --button-text: #fff;     
+}
+
+.primary-color{
+  color: var(--primary-color);
+}
+
+.background-primary-color{
+  background-color: var(--primary-color);
+}
+
+.primary-text{
+  color: var(--primary-text);
+}
+
+body {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+a {
+  color: var(--accent-color);
+}
