@@ -13,6 +13,7 @@ const authStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const res = await axios.post(`${BASEURL}/auth/loginAdmin`, credentials);
+      console.log("Login response:", res.data.admin);
       set({
         admin: res.data.admin,
         token: res.data.token,
