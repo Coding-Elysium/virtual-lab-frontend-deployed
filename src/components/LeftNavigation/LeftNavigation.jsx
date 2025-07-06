@@ -16,8 +16,6 @@ const MenuItem = ({ icon, title, to, children }) => {
   const location = useLocation();
   const isActive = to && location.pathname === to;
 
-  const { admin, isLoggedIn } = authStore();
-
   return (
     <div>
       <Link to={to || "#"}>
@@ -44,6 +42,7 @@ const MenuItem = ({ icon, title, to, children }) => {
 
 const LeftNavigation = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const { admin, isLoggedIn } = authStore();
 
   return (
     <aside className="w-64 h-screen bg-white shadow-md overflow-y-auto">

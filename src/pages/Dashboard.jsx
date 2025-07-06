@@ -12,7 +12,6 @@ import {
   Legend,
 } from "recharts";
 import crudStudentStore from "../store/crudStudent.jsx";
-import authStore from "../store/authStore.jsx";
 
 const Dashboard = () => {
   const { student, fetchAllStudents } = crudStudentStore();
