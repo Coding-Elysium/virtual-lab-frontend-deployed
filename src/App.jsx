@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Header from "./components/Header/header";
+import Header from "./components/Header/Header.jsx";
 import LeftNavigation from "./components/LeftNavigation/LeftNavigation";
 import Dashboard from "./pages/Dashboard";
 import { Outlet } from "react-router-dom";
@@ -26,14 +26,14 @@ function App() {
         )}
 
         <main className="flex-1 bg-gray-100 overflow-y-auto p-6">
-          <Outlet/>
+          <Outlet />
         </main>
 
         {isMobile && (
           <>
             <div
               className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
-                isMobileNavOpen ? 'translate-x-0' : '-translate-x-full'
+                isMobileNavOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
               <LeftNavigation />
@@ -51,6 +51,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
