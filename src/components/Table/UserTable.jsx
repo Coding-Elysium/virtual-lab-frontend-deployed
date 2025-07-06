@@ -70,7 +70,6 @@ export default function UserTable() {
                   setSearch(e.target.value);
                   setVisibleCount(10);
                 }}
-                
               />
             </section>
             <section>

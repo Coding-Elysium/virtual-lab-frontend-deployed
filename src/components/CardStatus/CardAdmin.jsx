@@ -20,6 +20,11 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
     };
   }, []);
 
+  if (!admin) return null; // safeguard
+
+  const firstInitial = admin.firstName?.[0] || "";
+  const lastInitial = admin.lastName?.[0] || "";
+
   return (
     <div className="bg-white shadow-md rounded-lg p-6 relative">
       <div className="absolute top-4 right-4" ref={menuRef}>
@@ -36,7 +41,7 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
               className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
               onClick={() => {
                 setShowMenu(false);
-                onEdit(admin);
+                onEdit?.(admin);
               }}
             >
               Edit
@@ -45,7 +50,7 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
               className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100 text-red-600"
               onClick={() => {
                 setShowMenu(false);
-                onDelete(admin);
+                onDelete?.(admin);
               }}
             >
               Delete
@@ -56,27 +61,30 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
 
       <div className="flex flex-col items-center">
         <div className="rounded-full w-20 h-20 bg-gray-600 flex items-center justify-center text-white text-3xl font-medium">
-          {admin.firstName[0]}
-          {admin.lastName[0]}
+          {firstInitial}
+          {lastInitial}
         </div>
-        <h2 className="text-xl font-semibold">{`${admin.firstName} ${admin.lastName}`}</h2>
-        <p className="text-sm text-gray-600">{admin.position}</p>
+        <h2 className="text-xl font-semibold">
+          {admin.firstName} {admin.lastName}
+        </h2>
+        <p className="text-sm text-gray-600">{admin.position || "N/A"}</p>
       </div>
 
       <div className="mt-4 text-sm text-gray-700 space-y-1">
         <p>
-          <span className="font-semibold">Subject:</span> {admin.subject}
+          <span className="font-semibold">Subject:</span>{" "}
+          {admin.subject || "N/A"}
         </p>
         <p>
           <span className="font-semibold">Employee No.:</span>{" "}
-          {admin.employeeNumber}
+          {admin.employeeNumber || "N/A"}
         </p>
         <p>
-          <span className="font-semibold">Gender:</span> {admin.gender}
+          <span className="font-semibold">Gender:</span> {admin.gender || "N/A"}
         </p>
         <p>
           <span className="font-semibold">Email:</span>{" "}
-          <span className="font-medium text-black">{admin.email}</span>
+          <span className="font-medium text-black">{admin.email || "N/A"}</span>
         </p>
       </div>
     </div>

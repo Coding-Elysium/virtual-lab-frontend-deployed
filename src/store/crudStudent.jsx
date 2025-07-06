@@ -23,9 +23,7 @@ const crudStudentStore = create((set) => ({
   fetchStudentApproved: async () => {
     set({ loading: true });
     try {
-      const res = await axios.get(
-        `${BASEURL}/student/read/approved`
-      );
+      const res = await axios.get(`${BASEURL}/student/read/approved`);
       set({ studentApproved: res.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
@@ -54,10 +52,7 @@ const crudStudentStore = create((set) => ({
 
   createStudent: async (newStudent) => {
     try {
-      const res = await axios.post(
-      `${BASEURL}/student/create`,
-        newStudent
-      );
+      const res = await axios.post(`${BASEURL}/student/create`, newStudent);
       set((state) => ({
         student: [...state.student, res.data.student],
         error: null,
@@ -77,7 +72,7 @@ const crudStudentStore = create((set) => ({
         updatedStudent
       );
       set((state) => ({
-        student: state.student.map((student) =>
+        studentApproved: state.studentApproved.map((student) =>
           student._id === updatedStudent._id ? res.data.student : student
         ),
         error: null,
@@ -92,9 +87,7 @@ const crudStudentStore = create((set) => ({
 
   approvedStudent: async (_id) => {
     try {
-      const res = await axios.put(
-        `${BASEURL}/student/update/approved/${_id}`
-      );
+      const res = await axios.put(`${BASEURL}/student/update/approved/${_id}`);
 
       set((state) => ({
         studentPending: state.studentPending.filter(
