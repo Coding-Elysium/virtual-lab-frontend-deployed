@@ -15,7 +15,7 @@ import crudStudentStore from "../store/crudStudent.jsx";
 import authStore from "../store/authStore.jsx";
 
 const Dashboard = () => {
-  const { student, fetchAllStudents, loading } = crudStudentStore();
+  const { student, fetchAllStudents } = crudStudentStore();
 
   useEffect(() => {
     fetchAllStudents();
@@ -83,13 +83,7 @@ const Dashboard = () => {
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Recent Students
         </h2>
-        <h2>
-          <span className="text-sm text-gray-600">
-            {isLoggedIn
-              ? `Welcome, ${admin?.firstName}`
-              : "Please log in to view data."}
-          </span>
-        </h2>
+
         <UserTable />
       </>
     </main>
