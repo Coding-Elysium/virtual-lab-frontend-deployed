@@ -9,11 +9,14 @@ import {
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import authStore from "../../store/authStore";
 
 const MenuItem = ({ icon, title, to, children }) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isActive = to && location.pathname === to;
+
+  const { admin, isLoggedIn } = authStore();
 
   return (
     <div>
@@ -56,32 +59,57 @@ const LeftNavigation = () => {
         Main Menu
       </div>
 
-      <MenuItem to="/dashboard" icon={<FaHome />} title="Dashboard" />
-      <MenuItem
-        to="/dashboard/addStudent"
-        icon={<FaUserPlus />}
-        title="Add Student"
-      />
-      <MenuItem
-        to="/dashboard/pendingStudent"
-        icon={<FaUserPlus />}
-        title="Pending Student"
-      />
-      <MenuItem
-        to="/dashboard/studentList"
-        icon={<FaUserGraduate />}
-        title="Student List"
-      />
-      <MenuItem
-        to="/dashboard/addAdmin"
-        icon={<FaUserPlus />}
-        title="Add Admin"
-      />
-      <MenuItem
-        to="/dashboard/adminList"
-        icon={<FaUserShield />}
-        title="Admin List"
-      />
+      {admin.role === "admin" && (
+        <>
+          <MenuItem to="/dashboard" icon={<FaHome />} title="Dashboard" />
+          <MenuItem
+            to="/dashboard/addStudent"
+            icon={<FaUserPlus />}
+            title="Add Student"
+          />
+          <MenuItem
+            to="/dashboard/pendingStudent"
+            icon={<FaUserPlus />}
+            title="Pending Student"
+          />
+          <MenuItem
+            to="/dashboard/studentList"
+            icon={<FaUserGraduate />}
+            title="Student List"
+          />
+        </>
+      )}
+
+      {admin.role === "superAdmin" && (
+        <>
+          <MenuItem to="/dashboard" icon={<FaHome />} title="Dashboard" />
+          <MenuItem
+            to="/dashboard/addStudent"
+            icon={<FaUserPlus />}
+            title="Add Student"
+          />
+          <MenuItem
+            to="/dashboard/pendingStudent"
+            icon={<FaUserPlus />}
+            title="Pending Student"
+          />
+          <MenuItem
+            to="/dashboard/studentList"
+            icon={<FaUserGraduate />}
+            title="Student List"
+          />
+          <MenuItem
+            to="/dashboard/addAdmin"
+            icon={<FaUserPlus />}
+            title="Add Admin"
+          />
+          <MenuItem
+            to="/dashboard/adminList"
+            icon={<FaUserShield />}
+            title="Admin List"
+          />
+        </>
+      )}
     </aside>
   );
 };

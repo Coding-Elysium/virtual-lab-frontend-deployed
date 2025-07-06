@@ -16,7 +16,6 @@ import authStore from "../store/authStore.jsx";
 
 const Dashboard = () => {
   const { student, fetchAllStudents, loading } = crudStudentStore();
-  const { admin, isLoggedIn } = authStore();
 
   useEffect(() => {
     fetchAllStudents();
