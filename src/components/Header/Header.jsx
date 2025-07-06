@@ -3,6 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import { FiMenu } from "react-icons/fi";
 import SearchField from "../TextField/SearchField";
 import { useNavigate } from "react-router-dom";
+import authStore from "../../store/authStore";
 
 const Header = ({ onMenuClick }) => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -14,6 +15,8 @@ const Header = ({ onMenuClick }) => {
   };
 
   const navigate = useNavigate();
+
+  const { logoutAdmin } = authStore();
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -29,6 +32,7 @@ const Header = ({ onMenuClick }) => {
   }, []);
 
   const handleLogout = () => {
+    logoutAdmin();
     navigate("/");
   };
 

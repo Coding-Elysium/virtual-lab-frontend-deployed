@@ -44,6 +44,8 @@ const LeftNavigation = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { admin, isLoggedIn } = authStore();
 
+  console.log("Admin data:", admin.role);
+
   return (
     <aside className="w-64 h-screen bg-white shadow-md overflow-y-auto">
       {isMobile && (
@@ -79,7 +81,7 @@ const LeftNavigation = () => {
         </>
       )}
 
-      {admin.role === "superAdmin" && (
+      {admin.role === "superadmin" && (
         <>
           <MenuItem to="/dashboard" icon={<FaHome />} title="Dashboard" />
           <MenuItem
