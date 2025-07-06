@@ -42,6 +42,24 @@ const crudAdminStore = create((set) => ({
       set({ error: error.message, loading: false });
     }
   },
+
+  updateAdmin: async (updatedAdmin) => {
+    set({ loading: true });
+    try {
+      const res = await axios.put(
+        `${BASEURL}/admin/update/${updatedAdmin._id}`,
+        updatedAdmin
+      );
+      set((state) => ({
+        admin: state.admin.map((admin) =>
+          admin._id === updatedAdmin._id ? res.data : admin
+        ),
+        loading: false,
+      }));
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
 }));
 
 export default crudAdminStore;

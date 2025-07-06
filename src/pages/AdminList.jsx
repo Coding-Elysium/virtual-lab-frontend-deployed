@@ -5,14 +5,17 @@ import SearchField from "../components/TextField/SearchField";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import crudAdminStore from "../store/crudAdmin";
+import EditAdminModal from "../components/Modal/EditAdminModal";
 
 const AdminList = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [visibleCount, setVisibleCount] = useState(10);
   const [search, setSearch] = useState("");
+  const [editOpenModal, setOpenEditModal] = useState(false);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const loadMoreRef = useRef(null);
 
-  const { fetchAllAdmin, admin, loading, error, deleteAdmin } =
+  const { updateAdmin, fetchAllAdmin, admin, loading, error, deleteAdmin } =
     crudAdminStore();
 
   useEffect(() => {
@@ -55,6 +58,13 @@ const AdminList = () => {
       }
     };
   }, [filteredUsers.length, visibleCount]);
+
+  const handleSave = async (adminData) => {
+    await updateAdmin(adminData);
+    await fetchAllAdmin();
+    setOpenEditModal(false);
+    setSelectedAdmin(null);
+  };
 
   return (
     <section className="flex flex-col gap-6">
@@ -105,10 +115,14 @@ const AdminList = () => {
           )}
 
           <div className="grid w-full gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 items-stretch">
-            {visibleUsers.slice(0, visibleCount).map((admin) => (
+            {visibleUsers.map((admin, index) => (
               <CardAdmin
-                key={admin._id}
+                key={admin._id || index}
                 admin={admin}
+                onEdit={() => {
+                  setSelectedAdmin(admin);
+                  setOpenEditModal(true);
+                }}
                 onDelete={() => deleteAdminData(admin._id)}
               />
             ))}
@@ -116,6 +130,16 @@ const AdminList = () => {
 
           <div ref={loadMoreRef} className="h-8" />
         </>
+      )}
+
+      {editOpenModal && selectedAdmin && (
+        <EditAdminModal
+          key={selectedAdmin._id}
+          isOpen={editOpenModal}
+          onClose={() => setOpenEditModal(false)}
+          admin={selectedAdmin}
+          savedAdmin={handleSave}
+        />
       )}
     </section>
   );

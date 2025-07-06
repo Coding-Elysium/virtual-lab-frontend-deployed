@@ -20,7 +20,7 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
     };
   }, []);
 
-  if (!admin) return null; // safeguard
+  if (!admin) return null;
 
   const firstInitial = admin.firstName?.[0] || "";
   const lastInitial = admin.lastName?.[0] || "";

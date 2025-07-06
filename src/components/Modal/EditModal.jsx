@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import InputField from "../TextField/InputField";
 import SelectField from "../TextField/SelectField";
 import crudStudentStore from "../../store/crudStudent";
-import SuccessModal from "../Modal/SuccessModal";
-import ErrorModal from "../Modal/ErrorModal";
 
 export default function EditUserModal({ isOpen, onClose, user }) {
   const { updateStudent } = crudStudentStore();
-  const [success, setSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
     _id: "",
