@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { FiMenu } from "react-icons/fi";
 import SearchField from "../TextField/SearchField";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authStore from "../../store/authStore";
 
 const Header = ({ onMenuClick }) => {
@@ -16,7 +16,9 @@ const Header = ({ onMenuClick }) => {
 
   const navigate = useNavigate();
 
-  const { logoutAdmin } = authStore();
+  const { admin, logoutAdmin } = authStore();
+
+  console.log(admin);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -50,24 +52,40 @@ const Header = ({ onMenuClick }) => {
       </div>
 
       <div className="relative" ref={dropdownRef}>
-        <img
-          src="https://randomuser.me/api/portraits/men/32.jpg"
-          alt="profile"
-          className={`rounded-full object-cover cursor-pointer border ${
-            isMobile ? "w-6 h-6" : "w-8 h-8"
-          }`}
-          onClick={handleToggleDropdown}
-        />
+        <section className="flex items-center gap-4">
 
+          {!isMobile && (
+            <div className="flex flex-col justify-center">
+              <h1 className="text-xl font-bold text-gray-900 leading-tight">
+                {admin.firstName} {admin.lastName}
+              </h1>
+              <p className="text-sm text-gray-600 font-medium">Head Teacher</p>
+            </div>
+          )}
+          
+          <div
+            className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold uppercase cursor-pointer hover:bg-gray-700 transition duration-200"
+            onClick={handleToggleDropdown}
+            title="Account Options"
+          >
+            <span>
+              {admin.firstName?.[0] ?? ''}{admin.lastName?.[0] ?? ''}
+            </span>
+          </div>
+        </section>
         {isDropdownOpen && (
           <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md z-10">
             <ul className="flex flex-col">
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Profile
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Settings
-              </li>
+              <Link to="/dashboard/profile" onClick={() => setIsDropdownOpen(false)}>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Profile
+                </li>
+              </Link>
+              <Link to="/dashboard/profile" onClick={() => setIsDropdownOpen(false)}>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Settings
+                </li>
+              </Link>
               <li
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
                 onClick={handleLogout}

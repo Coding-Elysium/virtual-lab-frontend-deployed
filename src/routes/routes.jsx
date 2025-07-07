@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import NotFound from "../components/NotFound/NotFound";
 import PendingStudent from "../pages/PendingStudent";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "adminList",
         element: <AdminList />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },
