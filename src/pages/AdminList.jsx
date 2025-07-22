@@ -32,32 +32,32 @@ const AdminList = () => {
     await deleteAdmin(id);
   };
 
-  const visibleUsers = filteredUsers.slice(0, visibleCount);
+  // const visibleUsers = filteredUsers.slice(0, visibleCount);
 
-  useEffect(() => {
-    if (filteredUsers.length <= visibleCount) return;
+  // useEffect(() => {
+  //   if (filteredUsers.length <= visibleCount) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisibleCount((prev) => prev + 10);
-        }
-      },
-      {
-        threshold: 1.0,
-      }
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         setVisibleCount((prev) => prev + 10);
+  //       }
+  //     },
+  //     {
+  //       threshold: 1.0,
+  //     }
+  //   );
 
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
-    }
+  //   if (loadMoreRef.current) {
+  //     observer.observe(loadMoreRef.current);
+  //   }
 
-    return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
-      }
-    };
-  }, [filteredUsers.length, visibleCount]);
+  //   return () => {
+  //     if (loadMoreRef.current) {
+  //       observer.unobserve(loadMoreRef.current);
+  //     }
+  //   };
+  // }, [filteredUsers.length, visibleCount]);
 
   const handleSave = async (adminData) => {
     await updateAdmin(adminData);
@@ -115,7 +115,7 @@ const AdminList = () => {
           )}
 
           <div className="grid w-full gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 items-stretch">
-            {visibleUsers.map((admin, index) => (
+            {filteredUsers.map((admin, index) => (
               <CardAdmin
                 key={admin._id || index}
                 admin={admin}

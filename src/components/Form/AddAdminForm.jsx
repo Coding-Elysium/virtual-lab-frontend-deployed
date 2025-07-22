@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import InputField from '../TextField/InputField';
 import SelectField from '../TextField/SelectField';
+import crudAdminStore from '../../store/crudAdmin';
 
 const AddAdminForm = ({
   admin = null,
   textButton = "Submit",
-  handleSubmit,
 }) => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -18,17 +18,19 @@ const AddAdminForm = ({
     gender: "",
   });
 
+  const { addAdmin, updateAdmin } = crudAdminStore();
+
   useEffect(() => {
     if (admin) {
       setFormData({
         firstName: admin.firstName || "",
         lastName: admin.lastName || "",
         email: admin.email || "",
-        password: "", 
         subject: admin.subject || "",
         employeeNumber: admin.employeeNumber || "",
         position: admin.position || "",
         gender: admin.gender || "",
+        _id: admin._id || "", 
       });
     }
   }, [admin]);
@@ -41,9 +43,28 @@ const AddAdminForm = ({
     }));
   };
 
+  const handleSubmit = async (data) => {
+    const res = await addAdmin(data);
+    if (res) {
+      console.log("Admin added successfully");
+    }
+  };
+
+  const handleEdit = async (data) => {
+    const res = await updateAdmin(data);
+    if (res) {
+      console.log("Update Admin");
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
-    handleSubmit(formData); 
+    if(admin){
+      handleEdit(formData); 
+    }
+    else{
+      handleSubmit(formData)
+    }
   };
 
   return (
@@ -62,7 +83,11 @@ const AddAdminForm = ({
           <InputField label="Subject" name="subject" value={formData.subject} onChange={onChange} placeholder="Enter Subject" />
           <InputField label="Employee Number" name="employeeNumber" value={formData.employeeNumber} onChange={onChange} placeholder="Enter Employee Number" />
           <InputField label="Position" name="position" value={formData.position} onChange={onChange} placeholder="Enter Position" />
-          <InputField label="Password" name="password" type="password" value={formData.password} onChange={onChange} placeholder="Enter Password" />
+          {
+            !admin && (
+              <InputField label="Password" name="password" type="password" value={formData.password} onChange={onChange} placeholder="Enter Password" />
+            )
+          }
         </div>
 
         <div className="flex justify-end gap-2 mt-6">
