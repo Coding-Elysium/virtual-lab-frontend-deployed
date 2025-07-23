@@ -5,7 +5,13 @@ import ProfileCard from "../components/ProfileCard/ProfileCard";
 import AddAdminForm from "../components/Form/AddAdminForm";
 
 const Profile = () => {
-  const { admin } = authStore();
+  const { admin, loading } = authStore();
+
+  if (loading) {
+    return (
+      <div className="text-center py-8">Loading...</div>
+    );
+  }
 
   return (
     <section className="flex flex-col gap-6">

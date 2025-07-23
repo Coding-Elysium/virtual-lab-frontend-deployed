@@ -159,7 +159,7 @@ export default function UserTable() {
                 <th className="px-6 py-3">Grade Level</th>
                 <th className="px-6 py-3">Gender</th>
                 <th className="px-6 py-3">Action</th>
-                <th className="px-6 py-3">View Action</th>
+                <th className="px-6 py-3"></th>
               </tr>
             </thead>
             <tbody>

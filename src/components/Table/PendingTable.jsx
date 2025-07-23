@@ -15,6 +15,7 @@ export default function PendingTable() {
     studentPending,
     fetchStudentPending,
     approvedStudent,
+    deleteStudent,
     loading,
     error,
   } = crudStudentStore();
@@ -46,8 +47,8 @@ export default function PendingTable() {
     // }
   };
 
-  const handleDeny = (userId) => {
-    console.log("Denied user:", userId);
+  const handleDeny = async(userId) => {
+    // await deleteStudent(userId);
   };
 
   useEffect(() => {

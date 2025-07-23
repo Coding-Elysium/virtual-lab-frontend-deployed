@@ -8,32 +8,18 @@ const AddAdminForm = ({
   textButton = "Submit",
 }) => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    subject: "",
-    employeeNumber: "",
-    position: "",
-    gender: "",
+    firstName: admin?.firstName || "",
+    lastName: admin?.lastName || "",
+    email: admin?.email || "",
+    password: admin?.password || "",
+    subject: admin?.subject || "",
+    employeeNumber: admin?.employeeNumber || "",
+    position: admin?.position || "",
+    gender: admin?.gender || "",
+    _id: admin?._id || "",
   });
 
-  const { addAdmin, updateAdmin } = crudAdminStore();
-
-  useEffect(() => {
-    if (admin) {
-      setFormData({
-        firstName: admin.firstName || "",
-        lastName: admin.lastName || "",
-        email: admin.email || "",
-        subject: admin.subject || "",
-        employeeNumber: admin.employeeNumber || "",
-        position: admin.position || "",
-        gender: admin.gender || "",
-        _id: admin._id || "", 
-      });
-    }
-  }, [admin]);
+  const { addAdmin, updateAdmin, loading } = crudAdminStore();
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -55,17 +41,22 @@ const AddAdminForm = ({
     if (res) {
       console.log("Update Admin");
     }
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if(admin){
-      handleEdit(formData); 
-    }
-    else{
-      handleSubmit(formData)
+    if (admin) {
+      handleEdit(formData);
+    } else {
+      handleSubmit(formData);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8">Loading...</div>
+    );
+  }
 
   return (
     <section className="bg-white rounded shadow">
