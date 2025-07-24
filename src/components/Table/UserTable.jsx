@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import crudStudentStore from "../../store/crudStudent";
 import EditUserModal from "../Modal/EditModal";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 export default function UserTable() {
   const [search, setSearch] = useState("");
@@ -13,7 +14,7 @@ export default function UserTable() {
   const loadMoreRef = useRef(null);
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
-  const { studentApproved, fetchStudentApproved, loading, error } =
+  const { deleteStudent, studentApproved, fetchStudentApproved, loading, error } =
     crudStudentStore();
 
   useEffect(() => {
@@ -188,17 +189,31 @@ export default function UserTable() {
                   <td className="px-6 py-4">{user.lrn}</td>
                   <td className="px-6 py-4">{user.gradeLevel}</td>
                   <td className="px-6 py-4">{user.gender}</td>
-                  <td className="px-6 py-4">
-                    <a
+                  <td className="px-6 py-4 flex items-center">
+                    <div 
+                      className="flex items-center"
                       onClick={() => {
                         setSelectedUser(user);
                         setIsEditModalOpen(true);
-                      }}
-                      href="#"
-                      className="font-medium primary-color hover:underline"
-                    >
-                      Edit user
-                    </a>
+                      }}>
+                      <p className="font-medium primary-color hover:underline mr-4 cursor-pointer">
+                        <FaEdit className="inline-block mr-2"/> Edit
+                      </p>
+                    </div>
+
+                    <div 
+                      className="flex items-center"
+                      onClick={async () => {
+                        await deleteStudent(user._id);
+                        // setSelectedUser(user);
+                        // setIsEditModalOpen(true);
+                      }}>
+                      <p className="font-medium primary-color hover:underline mr-4 cursor-pointer">
+                        <FaTrashAlt className="inline-block mr-2"/> Delete
+                      </p>
+                    </div>
+                    
+                    
                   </td>
                   <td className="px-6 py-4">
                     <Link

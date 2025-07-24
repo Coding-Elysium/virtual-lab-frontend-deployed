@@ -66,6 +66,7 @@ const crudStudentStore = create((set) => ({
   },
 
   updateStudent: async (updatedStudent) => {
+    set({ loading: true })
     try {
       const res = await axios.put(
         `${BASEURL}/student/update/${updatedStudent._id}`,
@@ -76,11 +77,12 @@ const crudStudentStore = create((set) => ({
           student._id === updatedStudent._id ? res.data.student : student
         ),
         error: null,
+        loading: false
       }));
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
-      set({ error: message });
+      set({ error: message, loading: false });
       return { success: false, message };
     }
   },
@@ -106,16 +108,18 @@ const crudStudentStore = create((set) => ({
   },
 
   deleteStudent: async (_id) => {
+    set({ loading: true })
     try {
-      await axios.delete(`${BASEURL}/student/delete/${_id}`);
+      const res = await axios.delete(`${BASEURL}/student/delete/${_id}`);
       set((state) => ({
-        student: state.student.filter((student) => student._id !== _id),
+        studentApproved: state.studentApproved.filter((student) => student._id !== _id),
+        loading: false,
         error: null,
       }));
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
-      set({ error: message });
+      set({ error: message, loading: false });
       return { success: false, message };
     }
   },

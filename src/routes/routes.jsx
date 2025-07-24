@@ -11,6 +11,8 @@ import NotFound from "../components/NotFound/NotFound";
 import PendingStudent from "../pages/PendingStudent";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Profile from "../pages/Profile";
+import StudentRetake from "../pages/StudentRetake";
+import StudentPerformance from "../pages/StudentPerformance";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "pendingStudent",
         element: <PendingStudent />,
+      },
+      {
+        path: "studentRetake",
+        element: <StudentRetake />,
+      },
+      {
+        path: "studentPerformance",
+        element: <StudentPerformance />,
       },
       {
         path: "studentList",

@@ -4,12 +4,13 @@ const CocCard = ({ data }) => {
   const isInappropriate = data.procedureStatus === "inappropriate";
 
   return (
-    <div className="max-w-sm w-full p-4 bg-white border border-gray-300 rounded-lg flex flex-col space-y-4 shadow-sm">
+    <div>
+      <h1 className="text-2xl mb-6 font-semibold">First Take</h1>
+      <div className="max-w-sm w-full p-4 bg-white border border-gray-300 rounded-lg flex flex-col space-y-4 shadow-sm">
       <div className="w-full h-48 bg-gray-100 rounded-md flex items-center justify-center text-gray-400 text-sm">
         No Image
       </div>
 
-      {/* Category & Name */}
       <div className="text-sm text-gray-700 space-y-1">
         <p>
           <strong>Category:</strong>{" "}
@@ -21,7 +22,6 @@ const CocCard = ({ data }) => {
         </p>
       </div>
 
-      {/* Procedure Status */}
       <div>
         <span
           className={`text-xs px-2 py-1 rounded-full font-medium ${
@@ -34,7 +34,6 @@ const CocCard = ({ data }) => {
         </span>
       </div>
 
-      {/* If inappropriate, show reasons */}
       {isInappropriate && data.invalidReasons?.length > 0 && (
         <div className="text-xs text-red-600 bg-red-50 p-2 rounded space-y-1">
           <p className="font-semibold">Issues Detected:</p>
@@ -46,7 +45,6 @@ const CocCard = ({ data }) => {
         </div>
       )}
 
-      {/* Ingredients */}
       <div>
         <h4 className="font-semibold text-indigo-600 mb-1">Ingredients</h4>
         <ul className="list-disc pl-4 text-xs text-gray-600 space-y-1">
@@ -76,7 +74,6 @@ const CocCard = ({ data }) => {
         </ul>
       </div>
 
-      {/* Tools */}
       <div>
         <h4 className="font-semibold text-indigo-600 mb-1">Tools</h4>
         <ul className="text-xs text-gray-600 space-y-1">
@@ -93,7 +90,6 @@ const CocCard = ({ data }) => {
         </ul>
       </div>
 
-      {/* Procedure Steps Placeholder */}
       <div>
         <h4 className="font-semibold text-indigo-600 mb-1">Procedure</h4>
         <ol className="list-decimal pl-4 text-xs text-gray-600">
@@ -101,11 +97,13 @@ const CocCard = ({ data }) => {
         </ol>
       </div>
 
-      {/* Action Button */}
       <button className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm py-2 rounded mt-auto cursor-pointer">
         Grade Performance
       </button>
     </div>
+
+    </div>
+    
   );
 };
 

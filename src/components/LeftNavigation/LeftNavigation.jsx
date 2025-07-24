@@ -5,6 +5,9 @@ import {
   FaUserGraduate,
   FaUserShield,
   FaListUl,
+  FaChalkboardTeacher, // Updated
+  FaUserCog, // Updated
+  FaChartLine, // Updated
 } from "react-icons/fa";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
@@ -70,7 +73,7 @@ const LeftNavigation = () => {
           />
           <MenuItem
             to="/dashboard/pendingStudent"
-            icon={<FaUserPlus />}
+            icon={<FaListUl />}
             title="Pending Student"
           />
           <MenuItem
@@ -91,7 +94,7 @@ const LeftNavigation = () => {
           />
           <MenuItem
             to="/dashboard/pendingStudent"
-            icon={<FaUserPlus />}
+            icon={<FaListUl />}
             title="Pending Student"
           />
           <MenuItem
@@ -100,8 +103,18 @@ const LeftNavigation = () => {
             title="Student List"
           />
           <MenuItem
+            to="/dashboard/studentRetake"
+            icon={<FaChalkboardTeacher />}
+            title="Retake Student"
+          />
+          <MenuItem
+            to="/dashboard/studentPerformance"
+            icon={<FaChartLine />}
+            title="Student Performance"
+          />
+          <MenuItem
             to="/dashboard/addAdmin"
-            icon={<FaUserPlus />}
+            icon={<FaUserCog />}
             title="Add Admin"
           />
           <MenuItem
