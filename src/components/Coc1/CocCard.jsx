@@ -5,7 +5,7 @@ const CocCard = ({ data }) => {
 
   return (
     <div>
-      <div className="max-w-sm w-full p-4 bg-white border border-gray-300 rounded-lg flex flex-col space-y-4 shadow-sm">
+      <div className="w-full p-4 bg-white border border-gray-300 rounded-lg flex flex-col space-y-4 shadow-sm">
         <div className="w-full h-48 bg-gray-100 rounded-md flex items-center justify-center text-gray-400 text-sm">
           No Image
         </div>
@@ -106,7 +106,6 @@ const CocCard = ({ data }) => {
         </button>
       </div>
     </div>
-    
   );
 };
 
