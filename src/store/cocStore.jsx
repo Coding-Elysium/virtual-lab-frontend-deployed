@@ -9,6 +9,7 @@ const cocStore = create((set) => ({
 
   fetchCoc: async (id, tab) => {
     set({ loading: true, error: null });
+    console.log(tab);
     try {
       const res = await axios.get(`${BASEURL}/coc/read/${id}?type=${tab}`);
       set({ coc: res.data.data || [], loading: false });

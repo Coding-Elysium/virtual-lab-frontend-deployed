@@ -24,7 +24,9 @@ const ViewProfile = () => {
   }, [_id, activeTab]);
 
   if (loading) {
-    return <div className="text-center mt-10 text-gray-500">Loading profile...</div>;
+    return (
+      <div className="text-center mt-10 text-gray-500">Loading profile...</div>
+    );
   }
 
   if (error) {
@@ -37,9 +39,9 @@ const ViewProfile = () => {
     );
   }
 
-  coc.map((item) => (
-    console.log(item.name)
-  ))
+  coc.map((item) => console.log(item.name));
+
+  console.log(coc);
 
   return (
     <div className="bg-gray-100">
@@ -64,7 +66,9 @@ const ViewProfile = () => {
             <ul className="space-y-3 text-sm text-gray-700">
               <li className="flex justify-between">
                 <span className="font-medium">Full Name:</span>
-                <span>{profile.firstName} {profile.lastName}</span>
+                <span>
+                  {profile.firstName} {profile.lastName}
+                </span>
               </li>
               <li className="flex justify-between">
                 <span className="font-medium">Email:</span>
@@ -113,16 +117,18 @@ const ViewProfile = () => {
             </div>
             <div className="p-6">
               {cocLoading ? (
-                <div className="text-center text-gray-500 py-10">Loading COC data...</div>
+                <div className="text-center text-gray-500 py-10">
+                  Loading COC data...
+                </div>
               ) : coc.length === 0 ? (
-                <div className="text-center text-gray-400 py-10">No COC data available.</div>
+                <div className="text-center text-gray-400 py-10">
+                  No COC data available.
+                </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {
-                    coc.map((item) => (
-                      <CocCard data={item}/>
-                    ))
-                  }
+                  {coc.map((item) => (
+                    <CocCard data={item} />
+                  ))}
                 </div>
               )}
             </div>
