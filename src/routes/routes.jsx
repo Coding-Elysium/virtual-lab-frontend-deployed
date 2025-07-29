@@ -42,10 +42,6 @@ const router = createBrowserRouter([
         element: <StudentRetake />,
       },
       {
-        path: "studentPerformance",
-        element: <StudentPerformance />,
-      },
-      {
         path: "studentList",
         element: <StudentList />,
       },

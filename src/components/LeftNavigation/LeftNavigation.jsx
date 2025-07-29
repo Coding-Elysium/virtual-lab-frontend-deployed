@@ -108,11 +108,6 @@ const LeftNavigation = () => {
             title="Retake Student"
           />
           <MenuItem
-            to="/dashboard/studentPerformance"
-            icon={<FaChartLine />}
-            title="Student Performance"
-          />
-          <MenuItem
             to="/dashboard/addAdmin"
             icon={<FaUserCog />}
             title="Add Admin"

@@ -130,6 +130,9 @@ const ViewProfile = () => {
                 //     <CocCard data={item} />
                 //   ))}
                 // </div>
+              
+                
+
                 <div className="flex flex-col gap-6">
                   {coc.map((item) => (
                     <CocCard data={item} />
