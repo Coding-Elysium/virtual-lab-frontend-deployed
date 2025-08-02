@@ -3,17 +3,18 @@ import InputField from "../TextField/InputField";
 
 export default function GradeModal({ onClose, onSave }) {
   const [formData, setFormData] = useState({
-    useEquipment: "",
-    applicationProcedures: "",
-    safetyHabits: "",
+    // Dimension
+    useTools: "",
+    procedure: "",
+    safety: "",
     product: "",
-    position: "",
     timeManagement: "",
+    // Criteria
     properBalance: "",
-    useColor: "",
+    useOfColor: "",
     shape: "",
-    useGarnish: "",
-    overAllPresentation: "",
+    useOfGarnish: "",
+    overallPresentation: "",
     comments: "",
   });
 
@@ -45,39 +46,34 @@ export default function GradeModal({ onClose, onSave }) {
 
         {/* Body */}
         <div className="overflow-y-auto px-6 py-4 flex-1 space-y-6">
+          {/* DIMENSION Section */}
           <div>
             <h3 className="text-lg font-semibold text-indigo-600 mb-3">
               Dimension
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <InputField
-                label="Use of Equipment"
-                name="useEquipment"
-                value={formData.useEquipment}
+                label="Use of Tools"
+                name="useTools"
+                value={formData.useTools}
                 onChange={handleChange}
               />
               <InputField
-                label="Application of Procedures"
-                name="applicationProcedures"
-                value={formData.applicationProcedures}
+                label="Procedure"
+                name="procedure"
+                value={formData.procedure}
                 onChange={handleChange}
               />
               <InputField
-                label="Safety Habits"
-                name="safetyHabits"
-                value={formData.safetyHabits}
+                label="Safety"
+                name="safety"
+                value={formData.safety}
                 onChange={handleChange}
               />
               <InputField
                 label="Product"
                 name="product"
                 value={formData.product}
-                onChange={handleChange}
-              />
-              <InputField
-                label="Position"
-                name="position"
-                value={formData.position}
                 onChange={handleChange}
               />
               <InputField
@@ -103,8 +99,8 @@ export default function GradeModal({ onClose, onSave }) {
               />
               <InputField
                 label="Use of Color"
-                name="useColor"
-                value={formData.useColor}
+                name="useOfColor"
+                value={formData.useOfColor}
                 onChange={handleChange}
               />
               <InputField
@@ -115,14 +111,14 @@ export default function GradeModal({ onClose, onSave }) {
               />
               <InputField
                 label="Use of Garnish"
-                name="useGarnish"
-                value={formData.useGarnish}
+                name="useOfGarnish"
+                value={formData.useOfGarnish}
                 onChange={handleChange}
               />
               <InputField
                 label="Overall Presentation"
-                name="overAllPresentation"
-                value={formData.overAllPresentation}
+                name="overallPresentation"
+                value={formData.overallPresentation}
                 onChange={handleChange}
               />
             </div>
@@ -142,7 +138,6 @@ export default function GradeModal({ onClose, onSave }) {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="p-6 border-t border-gray-200 flex justify-end gap-4">
           <button
             onClick={onClose}
