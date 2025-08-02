@@ -4,12 +4,16 @@ import DashboardHeader from "../components/Header/DashboardHeader";
 import crudStudentStore from "../store/crudStudent";
 import cocStore from "../store/cocStore";
 import CocCard from "../components/Coc1/CocCard";
+import platingStore from "../store/platingStore";
+import GradeModal from "../components/Modal/GradeModal";
 
 const ViewProfile = () => {
   const { _id } = useParams();
   const { fetchProfile, profile, loading, error } = crudStudentStore();
-  const { fetchCoc, coc, loading: cocLoading } = cocStore();
+  const { fetchCoc, coc, cocLoading } = cocStore();
   const [activeTab, setActiveTab] = useState("coc1");
+  const { fetchAllPlating, platingDetails } = platingStore();
+  const [grade, setGrade] = useState(false);
 
   useEffect(() => {
     if (_id) {
@@ -20,6 +24,7 @@ const ViewProfile = () => {
   useEffect(() => {
     if (_id && activeTab) {
       fetchCoc(_id, activeTab);
+      fetchAllPlating(_id, activeTab);
     }
   }, [_id, activeTab]);
 
@@ -39,9 +44,11 @@ const ViewProfile = () => {
     );
   }
 
-  coc.map((item) => console.log(item.name));
-
-  console.log(coc);
+  const images = Array.isArray(platingDetails?.result)
+    ? platingDetails.result
+        .filter((item) => item.image)
+        .map((item) => item.image)
+    : [];
 
   return (
     <div className="bg-gray-100">
@@ -100,22 +107,50 @@ const ViewProfile = () => {
 
         <div className="md:col-span-2">
           <div className="bg-white rounded-xl shadow">
-            <div className="flex border-b border-gray-200 px-6">
-              {["coc1", "coc2", "coc3"].map((tab) => (
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center border-b border-gray-200 px-4 sm:px-6">
+              <div className="flex flex-col sm:flex-row">
+                {["coc1", "coc2", "coc3"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`py-3 sm:py-4 px-4 sm:px-6 font-medium text-sm border-b-2 transition-all w-full sm:w-auto text-center ${
+                      activeTab === tab
+                        ? "border-indigo-500 text-indigo-600"
+                        : "border-transparent text-gray-500 hover:text-indigo-600"
+                    }`}
+                  >
+                    {tab.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-3 md:mt-0">
                 <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 transition-all ${
-                    activeTab === tab
-                      ? "border-indigo-500 text-indigo-600"
-                      : "border-transparent text-gray-500 hover:text-indigo-600"
-                  }`}
+                  onClick={() => setGrade(true)}
+                  className="w-full sm:w-auto py-2 px-4 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors cursor-pointer"
                 >
-                  {tab.toUpperCase()}
+                  Grade Performance
                 </button>
-              ))}
+              </div>
             </div>
-            <div className="p-6">
+
+            <div className="p-6 flex flex-col gap-6">
+              {images.length === 0 ? (
+                <div className="bg-gray-300 p-6 rounded-xl text-center h-64 flex items-center justify-center">
+                  <h3 className="text-gray-600">No Plating Available</h3>
+                </div>
+              ) : (
+                <div className="w-full">
+                  {images.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`Plating ${index + 1}`}
+                      className="w-full h-auto rounded-xl object-cover"
+                    />
+                  ))}
+                </div>
+              )}
+
               {cocLoading ? (
                 <div className="text-center text-gray-500 py-10">
                   Loading COC data...
@@ -125,17 +160,9 @@ const ViewProfile = () => {
                   No COC data available.
                 </div>
               ) : (
-                // <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                //   {coc.map((item) => (
-                //     <CocCard data={item} />
-                //   ))}
-                // </div>
-              
-                
-
                 <div className="flex flex-col gap-6">
-                  {coc.map((item) => (
-                    <CocCard data={item} />
+                  {coc.map((item, key) => (
+                    <CocCard key={item._key} data={item} />
                   ))}
                 </div>
               )}
@@ -143,6 +170,7 @@ const ViewProfile = () => {
           </div>
         </div>
       </div>
+      {grade && <GradeModal onClose={() => setGrade(false)} />}
     </div>
   );
 };
