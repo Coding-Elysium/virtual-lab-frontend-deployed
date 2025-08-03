@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import InputField from "../TextField/InputField";
+import { usePerformanceStore } from "../../store/performanceStore";
 
-export default function GradeModal({ onClose, onSave }) {
+export default function GradeModal({ onClose, id, data, type }) {
+  const { addPerformance, updatePerformance } = usePerformanceStore();
+
   const [formData, setFormData] = useState({
-    // Dimension
-    useTools: "",
-    procedure: "",
-    safety: "",
-    product: "",
-    timeManagement: "",
-    // Criteria
-    properBalance: "",
-    useOfColor: "",
-    shape: "",
-    useOfGarnish: "",
-    overallPresentation: "",
-    comments: "",
+    _id: data?._id || "",
+    studentId: id,
+    type: type || "",
+    useTools: data?.useTools || "",
+    procedure: data?.procedure || "",
+    safety: data?.safety || "",
+    product: data?.product || "",
+    timeManagement: data?.timeManagement || "",
+    properBalance: data?.properBalance || "",
+    useOfColor: data?.useOfColor || "",
+    shape: data?.shape || "",
+    useOfGarnish: data?.useOfGarnish || "",
+    overallPresentation: data?.overallPresentation || "",
+    comments: data?.comments || "",
   });
 
   const handleChange = (e) => {
@@ -25,9 +29,15 @@ export default function GradeModal({ onClose, onSave }) {
     }));
   };
 
-  const handleSubmit = () => {
-    if (onSave) onSave(formData);
-    onClose();
+  const handleSubmit = async () => {
+    if (data) {
+      await updatePerformance(formData);
+      window.location.reload();
+      onClose();
+    } else {
+      await addPerformance(formData);
+      onClose();
+    }
   };
 
   return (

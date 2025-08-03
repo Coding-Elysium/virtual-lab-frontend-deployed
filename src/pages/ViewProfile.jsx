@@ -6,6 +6,7 @@ import cocStore from "../store/cocStore";
 import CocCard from "../components/Coc1/CocCard";
 import platingStore from "../store/platingStore";
 import GradeModal from "../components/Modal/GradeModal";
+import { usePerformanceStore } from "../store/performanceStore";
 
 const ViewProfile = () => {
   const { _id } = useParams();
@@ -14,6 +15,7 @@ const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("coc1");
   const { fetchAllPlating, platingDetails } = platingStore();
   const [grade, setGrade] = useState(false);
+  const { fetchPerformance, performance } = usePerformanceStore();
 
   useEffect(() => {
     if (_id) {
@@ -25,6 +27,8 @@ const ViewProfile = () => {
     if (_id && activeTab) {
       fetchCoc(_id, activeTab);
       fetchAllPlating(_id, activeTab);
+      fetchPerformance(_id, activeTab);
+      performance;
     }
   }, [_id, activeTab]);
 
@@ -170,7 +174,14 @@ const ViewProfile = () => {
           </div>
         </div>
       </div>
-      {grade && <GradeModal onClose={() => setGrade(false)} />}
+      {grade && (
+        <GradeModal
+          onClose={() => setGrade(false)}
+          id={_id}
+          data={performance}
+          type={activeTab}
+        />
+      )}
     </div>
   );
 };
