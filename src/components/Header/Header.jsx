@@ -20,7 +20,6 @@ const Header = ({ onMenuClick }) => {
 
   console.log(admin);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -81,11 +80,11 @@ const Header = ({ onMenuClick }) => {
                   Profile
                 </li>
               </Link>
-              <Link to="/dashboard/profile" onClick={() => setIsDropdownOpen(false)}>
+              {/* <Link to="/dashboard/profile" onClick={() => setIsDropdownOpen(false)}>
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   Settings
                 </li>
-              </Link>
+              </Link> */}
               <li
                 className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
                 onClick={handleLogout}
