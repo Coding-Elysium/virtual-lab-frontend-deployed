@@ -228,7 +228,7 @@ export default function UserTable() {
             </tbody>
           </table>
 
-          <div ref={loadMoreRef} className="h-8"></div>
+          <div ref={loadMoreRef}></div>
           <EditUserModal
             isOpen={isEditModalOpen}
             onClose={() => setIsEditModalOpen(false)}

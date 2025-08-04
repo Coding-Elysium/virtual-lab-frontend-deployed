@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { FiMenu } from "react-icons/fi";
-import SearchField from "../TextField/SearchField";
 import { Link, useNavigate } from "react-router-dom";
 import authStore from "../../store/authStore";
 

@@ -212,7 +212,7 @@ export default function PendingTable() {
               ))}
             </tbody>
           </table>
-          <div ref={loadMoreRef} className="h-8"></div>
+          <div ref={loadMoreRef}></div>
         </div>
       )}
     </>
