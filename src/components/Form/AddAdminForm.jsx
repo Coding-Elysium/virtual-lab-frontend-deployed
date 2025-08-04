@@ -67,16 +67,16 @@ const AddAdminForm = ({
 
       <form onSubmit={onSubmit} className="py-4 px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputField label="First Name" name="firstName" value={formData.firstName} onChange={onChange} placeholder="Enter First Name" />
-          <InputField label="Last Name" name="lastName" value={formData.lastName} onChange={onChange} placeholder="Enter Last Name" />
-          <InputField label="Email" name="email" type="email" value={formData.email} onChange={onChange} placeholder="Enter Email" />
-          <SelectField label="Gender" name="gender" value={formData.gender} onChange={onChange} options={["Male", "Female"]} />
-          <InputField label="Subject" name="subject" value={formData.subject} onChange={onChange} placeholder="Enter Subject" />
-          <InputField label="Employee Number" name="employeeNumber" value={formData.employeeNumber} onChange={onChange} placeholder="Enter Employee Number" />
-          <InputField label="Position" name="position" value={formData.position} onChange={onChange} placeholder="Enter Position" />
+          <InputField label="First Name" name="firstName" value={formData.firstName} onChange={onChange} placeholder="Enter First Name" required/>
+          <InputField label="Last Name" name="lastName" value={formData.lastName} onChange={onChange} placeholder="Enter Last Name" required/>
+          <InputField label="Email" name="email" type="email" value={formData.email} onChange={onChange} placeholder="Enter Email" required/>
+          <SelectField label="Gender" name="gender" value={formData.gender} onChange={onChange} options={["Male", "Female"]} required/>
+          <InputField label="Subject" name="subject" value={formData.subject} onChange={onChange} placeholder="Enter Subject" required/>
+          <InputField label="Employee Number" name="employeeNumber" value={formData.employeeNumber} onChange={onChange} placeholder="Enter Employee Number" required/>
+          <InputField label="Position" name="position" value={formData.position} onChange={onChange} placeholder="Enter Position" required/>
           {
             !admin && (
-              <InputField label="Password" name="password" type="password" value={formData.password} onChange={onChange} placeholder="Enter Password" />
+              <InputField label="Password" name="password" type="password" value={formData.password} onChange={onChange} placeholder="Enter Password" required={admin}/>
             )
           }
         </div>

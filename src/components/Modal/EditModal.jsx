@@ -46,18 +46,21 @@ export default function EditUserModal({ isOpen, onClose, user }) {
             name="lrn"
             value={formData.lrn}
             onChange={handleChange}
+            required
           />
           <InputField
             label="First Name"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
+            required
           />
           <InputField
             label="Last Name"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
+            required
           />
           <SelectField
             label="Gender"
@@ -65,6 +68,7 @@ export default function EditUserModal({ isOpen, onClose, user }) {
             value={formData.gender}
             options={["Male", "Female"]}
             onChange={handleChange}
+            required
           />
           <SelectField
             label="Grade Level"
@@ -72,6 +76,7 @@ export default function EditUserModal({ isOpen, onClose, user }) {
             value={formData.gradeLevel}
             options={["Junior High School", "Senior High School"]}
             onChange={handleChange}
+            required
           />
         </div>
 

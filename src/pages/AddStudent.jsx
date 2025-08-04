@@ -77,6 +77,7 @@ const AddStudent = () => {
               value={formData.lrn}
               onChange={handleChange}
               placeholder="Enter LRN"
+              required
             />
 
             <InputField
@@ -85,6 +86,7 @@ const AddStudent = () => {
               value={formData.firstName}
               onChange={handleChange}
               placeholder="Enter First Name"
+              required
             />
 
             <InputField
@@ -92,7 +94,8 @@ const AddStudent = () => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Enter First Name"
+              placeholder="Enter First Name"  
+              required
             />
 
             <InputField
@@ -102,6 +105,7 @@ const AddStudent = () => {
               type="email"
               onChange={handleChange}
               placeholder="Enter First Name"
+              required
             />
 
             <SelectField
@@ -110,6 +114,7 @@ const AddStudent = () => {
               value={formData.gender}
               onChange={handleChange}
               options={["Male", "Female"]}
+              required
             />
 
             <InputField
@@ -119,6 +124,7 @@ const AddStudent = () => {
               type="password"
               onChange={handleChange}
               placeholder="Enter First Name"
+              required
             />
           </div>
 
@@ -129,6 +135,7 @@ const AddStudent = () => {
               value={formData.gradeLevel}
               onChange={handleChange}
               options={["Senior High School", "Junior High School"]}
+              required
             />
           </div>
 

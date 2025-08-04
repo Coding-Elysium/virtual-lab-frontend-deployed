@@ -31,7 +31,6 @@ const CocCard = ({ data }) => {
         </p>
       </div>
 
-      {/* Equipments Section */}
       {data.equipments?.length > 0 && (
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-2">
@@ -52,7 +51,6 @@ const CocCard = ({ data }) => {
         </div>
       )}
 
-      {/* Ingredient Actions */}
       {data.ingredients?.length > 0 && (
         <div className="mt-6">
           <div className="flex items-center gap-2 mb-2">

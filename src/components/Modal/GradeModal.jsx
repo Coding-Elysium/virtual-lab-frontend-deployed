@@ -30,6 +30,26 @@ export default function GradeModal({ onClose, id, data, type }) {
   };
 
   const handleSubmit = async () => {
+    const requiredFields = [
+      "useTools",
+      "procedure",
+      "safety",
+      "product",
+      "timeManagement",
+      "properBalance",
+      "useOfColor",
+      "shape",
+      "useOfGarnish",
+      "overallPresentation",
+    ];
+
+    const missingFields = requiredFields.filter((field) => !formData[field]?.trim());
+
+    if (missingFields.length > 0) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     if (data) {
       await updatePerformance(formData);
       window.location.reload();
@@ -40,10 +60,10 @@ export default function GradeModal({ onClose, id, data, type }) {
     }
   };
 
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-md w-full max-w-2xl shadow-md max-h-[90vh] flex flex-col">
-        {/* Header */}
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Grade Performance</h2>
           <button
@@ -54,9 +74,7 @@ export default function GradeModal({ onClose, id, data, type }) {
           </button>
         </div>
 
-        {/* Body */}
         <div className="overflow-y-auto px-6 py-4 flex-1 space-y-6">
-          {/* DIMENSION Section */}
           <div>
             <h3 className="text-lg font-semibold text-indigo-600 mb-3">
               Dimension
@@ -67,35 +85,39 @@ export default function GradeModal({ onClose, id, data, type }) {
                 name="useTools"
                 value={formData.useTools}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Procedure"
                 name="procedure"
                 value={formData.procedure}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Safety"
                 name="safety"
                 value={formData.safety}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Product"
                 name="product"
                 value={formData.product}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Time Management"
                 name="timeManagement"
                 value={formData.timeManagement}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          {/* CRITERIA Section */}
           <div>
             <h3 className="text-lg font-semibold text-indigo-600 mb-3">
               Criteria
@@ -106,35 +128,39 @@ export default function GradeModal({ onClose, id, data, type }) {
                 name="properBalance"
                 value={formData.properBalance}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Use of Color"
                 name="useOfColor"
                 value={formData.useOfColor}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Shape"
                 name="shape"
                 value={formData.shape}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Use of Garnish"
                 name="useOfGarnish"
                 value={formData.useOfGarnish}
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Overall Presentation"
                 name="overallPresentation"
                 value={formData.overallPresentation}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          {/* Comments */}
           <div>
             <label className="block text-sm font-medium mb-1">Comments</label>
             <textarea

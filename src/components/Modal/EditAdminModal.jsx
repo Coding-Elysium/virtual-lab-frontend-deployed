@@ -45,24 +45,28 @@ export default function EditAdminModal({ isOpen, onClose, admin, savedAdmin }) {
               name="employeeNumber"
               value={formData.employeeNumber}
               onChange={handleChange}
+              required
             />
             <InputField
               label="First Name"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
+              required
             />
             <InputField
               label="Last Name"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
+              required
             />
             <InputField
               label="Email"
               name="email"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             <SelectField
               label="Gender"
@@ -70,18 +74,21 @@ export default function EditAdminModal({ isOpen, onClose, admin, savedAdmin }) {
               value={formData.gender}
               options={["Male", "Female"]}
               onChange={handleChange}
+              required
             />
             <InputField
               label="Subject"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
+              required
             />
             <InputField
               label="Position"
               name="position"
               value={formData.position}
               onChange={handleChange}
+              required
             />
           </div>
 
