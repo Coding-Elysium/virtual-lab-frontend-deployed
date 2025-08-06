@@ -1,48 +1,77 @@
-import { useState, useEffect, useRef } from "react";
+// src/components/UserTable/UserTable.jsx
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import SearchField from "../TextField/SearchField";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import crudStudentStore from "../../store/crudStudent";
 import EditUserModal from "../Modal/EditModal";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+// Import the new skeleton component
+import UserTableSkeleton from "../UserTableSkeleton/UserTableSkeleton";
 
 export default function UserTable() {
   const [search, setSearch] = useState("");
-  const [visibleCount, setVisibleCount] = useState(10);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const loadMoreRef = useRef(null);
   const isMobile = useMediaQuery({ maxWidth: 768 });
+  const [visibleCount, setVisibleCount] = useState(10);
 
-  const { deleteStudent, studentApproved, fetchStudentApproved, loading, error } =
-    crudStudentStore();
+  const {
+    deleteStudent,
+    studentApproved,
+    fetchStudentApproved,
+    loading,
+    error,
+  } = crudStudentStore();
 
   useEffect(() => {
     fetchStudentApproved();
+  }, [fetchStudentApproved]);
+
+  const handleSearchChange = useCallback((e) => {
+    setSearch(e.target.value);
+    setVisibleCount(10);
   }, []);
 
-  const filteredUsers = studentApproved
-    .filter((user) => user.status === "Approved")
-    .filter((user) =>
-      `${user.firstName} ${user.lastName} ${user.email} ${user.gradeLevel} ${user.lrn}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
+  const handleEditClick = useCallback((user) => {
+    setSelectedUser(user);
+    setIsEditModalOpen(true);
+  }, []);
 
-  const visibleUsers = filteredUsers.slice(0, visibleCount);
+  const handleDeleteClick = useCallback(
+    async (userId) => {
+      if (window.confirm("Are you sure you want to delete this student?")) {
+        await deleteStudent(userId);
+      }
+    },
+    [deleteStudent]
+  );
+
+  const filteredUsers = useMemo(() => {
+    if (!studentApproved) return [];
+
+    return studentApproved
+      .filter((user) => user.status === "Approved")
+      .filter((user) =>
+        `${user.firstName} ${user.lastName} ${user.email} ${user.gradeLevel} ${user.lrn}`
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      );
+  }, [studentApproved, search]);
+
+  const displayedUsers = useMemo(() => {
+    return filteredUsers.slice(0, visibleCount);
+  }, [filteredUsers, visibleCount]);
 
   useEffect(() => {
-    if (filteredUsers.length <= visibleCount) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisibleCount((prev) => prev + 10);
+        if (entries[0].isIntersecting && visibleCount < filteredUsers.length) {
+          setVisibleCount((prevCount) => prevCount + 10);
         }
       },
-      {
-        threshold: 1.0,
-      }
+      { threshold: 1.0 }
     );
 
     if (loadMoreRef.current) {
@@ -54,24 +83,31 @@ export default function UserTable() {
         observer.unobserve(loadMoreRef.current);
       }
     };
-  }, [filteredUsers.length, visibleCount]);
+  }, [visibleCount, filteredUsers]);
 
-  if (loading) return <div className="text-center py-8">Loading...</div>;
   if (error)
     return <div className="text-center py-8 text-red-600">Error: {error}</div>;
+
+  if (loading) {
+    return (
+      <div>
+        <div className="flex items-center justify-between flex-col md:flex-row flex-wrap gap-4 pb-4 bg-white">
+          <div className="h-10 w-64 bg-gray-200 rounded animate-pulse"></div>
+          <div className="h-10 w-32 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        <UserTableSkeleton isMobile={isMobile} />
+      </div>
+    );
+  }
 
   return (
     <>
       {isMobile ? (
+        // ... mobile view code
         <>
           <div className="flex flex-col gap-6">
             <section>
-              <SearchField
-                onchange={(e) => {
-                  setSearch(e.target.value);
-                  setVisibleCount(10);
-                }}
-              />
+              <SearchField onchange={handleSearchChange} />
             </section>
             <section>
               <Link to="/dashboard/addStudent">
@@ -83,7 +119,7 @@ export default function UserTable() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {visibleUsers.map((user) => (
+            {displayedUsers.map((user) => (
               <div
                 key={user._id}
                 className="p-4 bg-white shadow-md rounded-md border border-gray-200"
@@ -108,10 +144,7 @@ export default function UserTable() {
                 <div className="mt-3 flex gap-4 text-sm justify-end">
                   <button
                     className="text-white background-primary-color py-2 px-4 rounded-sm hover:opacity-90"
-                    onClick={() => {
-                      setSelectedUser(user);
-                      setIsEditModalOpen(true);
-                    }}
+                    onClick={() => handleEditClick(user)}
                   >
                     Edit User
                   </button>
@@ -124,11 +157,6 @@ export default function UserTable() {
               </div>
             ))}
             <div ref={loadMoreRef} className="h-8"></div>
-            <EditUserModal
-              isOpen={isEditModalOpen}
-              onClose={() => setIsEditModalOpen(false)}
-              user={selectedUser}
-            />
           </div>
         </>
       ) : (
@@ -136,10 +164,7 @@ export default function UserTable() {
           <div className="flex items-center justify-between flex-col md:flex-row flex-wrap gap-4 pb-4 px-6 pt-4 bg-white">
             <section>
               <SearchField
-                onchange={(e) => {
-                  setSearch(e.target.value);
-                  setVisibleCount(10);
-                }}
+                onchange={handleSearchChange}
                 bgColor="bg-gray-100"
               />
             </section>
@@ -164,7 +189,7 @@ export default function UserTable() {
               </tr>
             </thead>
             <tbody>
-              {visibleUsers.map((user) => (
+              {displayedUsers.map((user) => (
                 <tr
                   key={user._id}
                   className="bg-white border-b border-gray-300 hover:bg-gray-50"
@@ -190,30 +215,18 @@ export default function UserTable() {
                   <td className="px-6 py-4">{user.gradeLevel}</td>
                   <td className="px-6 py-4">{user.gender}</td>
                   <td className="px-6 py-4 flex items-center">
-                    <div 
-                      className="flex items-center"
-                      onClick={() => {
-                        setSelectedUser(user);
-                        setIsEditModalOpen(true);
-                      }}>
-                      <p className="font-medium primary-color hover:underline mr-4 cursor-pointer">
-                        <FaEdit className="inline-block mr-2"/> Edit
-                      </p>
-                    </div>
-
-                    <div 
-                      className="flex items-center"
-                      onClick={async () => {
-                        await deleteStudent(user._id);
-                        // setSelectedUser(user);
-                        // setIsEditModalOpen(true);
-                      }}>
-                      <p className="font-medium primary-color hover:underline mr-4 cursor-pointer">
-                        <FaTrashAlt className="inline-block mr-2"/> Delete
-                      </p>
-                    </div>
-                    
-                    
+                    <button
+                      className="font-medium primary-color hover:underline mr-4 cursor-pointer"
+                      onClick={() => handleEditClick(user)}
+                    >
+                      <FaEdit className="inline-block mr-2" /> Edit
+                    </button>
+                    <button
+                      className="font-medium primary-color hover:underline mr-4 cursor-pointer"
+                      onClick={() => handleDeleteClick(user._id)}
+                    >
+                      <FaTrashAlt className="inline-block mr-2" /> Delete
+                    </button>
                   </td>
                   <td className="px-6 py-4">
                     <Link
@@ -229,13 +242,13 @@ export default function UserTable() {
           </table>
 
           <div ref={loadMoreRef}></div>
-          <EditUserModal
-            isOpen={isEditModalOpen}
-            onClose={() => setIsEditModalOpen(false)}
-            user={selectedUser}
-          />
         </div>
       )}
+      <EditUserModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        user={selectedUser}
+      />
     </>
   );
 }
