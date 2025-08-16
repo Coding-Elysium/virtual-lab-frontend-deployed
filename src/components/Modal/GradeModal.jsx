@@ -5,8 +5,7 @@ import { usePerformanceStore } from "../../store/performanceStore";
 export default function GradeModal({ onClose, id, data, type }) {
   const { addPerformance, updatePerformance } = usePerformanceStore();
 
-  const [formData, setFormData] = useState({
-    _id: data?._id || "",
+  const baseFormData = {
     studentId: id,
     type: type || "",
     useTools: data?.useTools || "",
@@ -20,7 +19,11 @@ export default function GradeModal({ onClose, id, data, type }) {
     useOfGarnish: data?.useOfGarnish || "",
     overallPresentation: data?.overallPresentation || "",
     comments: data?.comments || "",
-  });
+  };
+
+  const [formData, setFormData] = useState(
+    data ? { _id: data._id, ...baseFormData } : baseFormData
+  );
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -36,6 +39,7 @@ export default function GradeModal({ onClose, id, data, type }) {
       onClose();
     } else {
       await addPerformance(formData);
+      window.location.reload();
       onClose();
     }
   };
@@ -43,7 +47,6 @@ export default function GradeModal({ onClose, id, data, type }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-md w-full max-w-2xl shadow-md max-h-[90vh] flex flex-col">
-        {/* Header */}
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Grade Performance</h2>
           <button
