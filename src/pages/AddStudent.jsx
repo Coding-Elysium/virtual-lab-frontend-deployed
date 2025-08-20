@@ -17,7 +17,7 @@ const AddStudent = () => {
     lrn: "",
     firstName: "",
     lastName: "",
-    email: "",
+    username: "",
     gender: "",
     password: "",
     gradeLevel: "",
@@ -48,7 +48,7 @@ const AddStudent = () => {
         lrn: "",
         firstName: "",
         lastName: "",
-        email: "",
+        username: "",
         gender: "",
         password: "",
         gradeLevel: "",
@@ -94,17 +94,17 @@ const AddStudent = () => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Enter First Name"  
+              placeholder="Enter Last Name"  
               required
             />
 
             <InputField
-              label="Email"
-              name="email"
-              value={formData.email}
-              type="email"
+              label="Username"
+              name="username"
+              value={formData.username}
+              type="username"
               onChange={handleChange}
-              placeholder="Enter First Name"
+              placeholder="Username"
               required
             />
 
@@ -123,7 +123,7 @@ const AddStudent = () => {
               value={formData.password}
               type="password"
               onChange={handleChange}
-              placeholder="Enter First Name"
+              placeholder="Enter Password"
               required
             />
           </div>
@@ -158,7 +158,7 @@ const AddStudent = () => {
       )}
       {error && (
         <ErrorModal
-          message="LRN or email already exists."
+          message="LRN or username already exists."
           onClose={() => setError(false)}
         />
       )}

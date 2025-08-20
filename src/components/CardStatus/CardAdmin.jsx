@@ -83,8 +83,8 @@ const CardAdmin = ({ admin, onEdit, onDelete }) => {
           <span className="font-semibold">Gender:</span> {admin.gender || "N/A"}
         </p>
         <p>
-          <span className="font-semibold">Email:</span>{" "}
-          <span className="font-medium text-black">{admin.email || "N/A"}</span>
+          <span className="font-semibold">Username:</span>{" "}
+          <span className="font-medium text-black">{admin.username || "N/A"}</span>
         </p>
       </div>
     </div>

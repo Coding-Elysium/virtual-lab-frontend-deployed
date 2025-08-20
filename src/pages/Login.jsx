@@ -5,7 +5,7 @@ import authStore from "../store/authStore";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const togglePassword = () => setShowPassword(!showPassword);
@@ -14,9 +14,9 @@ const Login = () => {
   const { loginAdmin, loading } = authStore();
 
   const handleSignIn = async () => {
-    if (!email || !password) return alert("Please enter email and password.");
+    if (!username || !password) return alert("Please enter username and password.");
 
-    await loginAdmin({ email, password });
+    await loginAdmin({ username, password });
 
     const { isLoggedIn, error } = authStore.getState();
 
@@ -26,7 +26,7 @@ const Login = () => {
       navigate("/dashboard");
     } else {
       alert(error || "Login failed.");
-      setEmail("");
+      setUsername("");
       setPassword("");
     }
   };
@@ -43,12 +43,12 @@ const Login = () => {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">Username</label>
             <input
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter Username"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>

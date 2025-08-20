@@ -54,7 +54,7 @@ export default function UserTable() {
     return studentApproved
       .filter((user) => user.status === "Approved")
       .filter((user) =>
-        `${user.firstName} ${user.lastName} ${user.email} ${user.gradeLevel} ${user.lrn}`
+        `${user.firstName} ${user.lastName} ${user.username} ${user.gradeLevel} ${user.lrn}`
           .toLowerCase()
           .includes(search.toLowerCase())
       );
@@ -133,7 +133,7 @@ export default function UserTable() {
                     <div className="text-base font-semibold">
                       {user.firstName} {user.lastName}
                     </div>
-                    <div className="text-sm text-gray-500">{user.email}</div>
+                    <div className="text-sm text-gray-500">{user.username}</div>
                   </div>
                 </div>
                 <div className="mt-2 text-sm">
@@ -207,7 +207,7 @@ export default function UserTable() {
                         {user.firstName} {user.lastName}
                       </div>
                       <div className="font-normal text-gray-500">
-                        {user.email}
+                        {user.username}
                       </div>
                     </div>
                   </th>

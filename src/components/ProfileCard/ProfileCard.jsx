@@ -39,8 +39,8 @@ const ProfileCard = ({ admin }) => {
               {admin.firstName} {admin.lastName}
             </h2>
             <p className="text-sm text-gray-500">Head Teacher</p>
-            <p className="text-sm text-gray-700 mt-2">{admin.email ?? 'info@example.com'}</p>
-            <p className="text-xs text-gray-500">Email</p>
+            <p className="text-sm text-gray-700 mt-2">{admin.username ?? 'info@example.com'}</p>
+            <p className="text-xs text-gray-500">Username</p>
           </div>
         )}
       </div>

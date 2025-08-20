@@ -12,7 +12,7 @@ export default function EditAdminModal({ isOpen, onClose, admin, savedAdmin }) {
     lastName: "",
     subject: "",
     position: "",
-    email: "",
+    username: "",
     gender: "",
   });
 
@@ -62,9 +62,9 @@ export default function EditAdminModal({ isOpen, onClose, admin, savedAdmin }) {
               required
             />
             <InputField
-              label="Email"
-              name="email"
-              value={formData.email}
+              label="Username"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               required
             />

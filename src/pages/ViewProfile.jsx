@@ -82,8 +82,8 @@ const ViewProfile = () => {
                 </span>
               </li>
               <li className="flex justify-between">
-                <span className="font-medium">Email:</span>
-                <span>{profile.email}</span>
+                <span className="font-medium">Username:</span>
+                <span>{profile.username}</span>
               </li>
               <li className="flex justify-between">
                 <span className="font-medium">Gender:</span>

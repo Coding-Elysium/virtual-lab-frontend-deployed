@@ -13,7 +13,7 @@ export default function EditUserModal({ isOpen, onClose, user }) {
     lastName: "",
     gender: "",
     gradeLevel: "",
-    email: "",
+    username: "",
   });
 
   useEffect(() => {

@@ -27,7 +27,7 @@ export default function PendingTable() {
   const filteredUsers = studentPending
     .filter((user) => user.status === "Pending")
     .filter((user) =>
-      `${user.firstName} ${user.lastName} ${user.email} ${user.gradeLevel}`
+      `${user.firstName} ${user.lastName} ${user.username} ${user.gradeLevel}`
         .toLowerCase()
         .includes(search.toLowerCase())
     );
@@ -109,7 +109,7 @@ export default function PendingTable() {
                     <div className="text-base font-semibold">
                       {user.firstName} {user.lastName}
                     </div>
-                    <div className="text-sm text-gray-500">{user.email}</div>
+                    <div className="text-sm text-gray-500">{user.username}</div>
                   </div>
                 </div>
                 <div className="mt-2 text-sm">
@@ -185,7 +185,7 @@ export default function PendingTable() {
                         {user.firstName} {user.lastName}
                       </div>
                       <div className="font-normal text-gray-500">
-                        {user.email}
+                        {user.username}
                       </div>
                     </div>
                   </th>
