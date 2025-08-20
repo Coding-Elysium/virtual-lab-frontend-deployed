@@ -5,8 +5,7 @@ import { usePerformanceStore } from "../../store/performanceStore";
 export default function GradeModal({ onClose, id, data, type }) {
   const { addPerformance, updatePerformance } = usePerformanceStore();
 
-  const [formData, setFormData] = useState({
-    _id: data?._id || "",
+  const baseFormData = {
     studentId: id,
     type: type || "",
     useTools: data?.useTools || "",
@@ -20,7 +19,11 @@ export default function GradeModal({ onClose, id, data, type }) {
     useOfGarnish: data?.useOfGarnish || "",
     overallPresentation: data?.overallPresentation || "",
     comments: data?.comments || "",
-  });
+  };
+
+  const [formData, setFormData] = useState(
+    data ? { _id: data._id, ...baseFormData } : baseFormData
+  );
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -56,6 +59,7 @@ export default function GradeModal({ onClose, id, data, type }) {
       onClose();
     } else {
       await addPerformance(formData);
+      window.location.reload();
       onClose();
     }
   };

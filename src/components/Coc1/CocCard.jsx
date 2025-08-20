@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTools, FaList, FaExclamationTriangle } from "react-icons/fa";
+import { capitalizeEachWord, capitalizeWords } from "../../helper/helper";
 
 const CocCard = ({ data }) => {
   return (
@@ -11,11 +12,11 @@ const CocCard = ({ data }) => {
       <div className="mb-4 space-y-2">
         <p>
           <span className="font-semibold text-gray-700">Category:</span>{" "}
-          {data?.category}
+          {capitalizeEachWord(data?.category)}
         </p>
         <p>
           <span className="font-semibold text-gray-700">Name:</span>{" "}
-          {data?.name}
+          {capitalizeWords(data?.name)}
         </p>
         <p>
           <span className="font-semibold text-gray-700">Status:</span>{" "}
@@ -41,10 +42,16 @@ const CocCard = ({ data }) => {
             {data.equipments.map((item, index) => (
               <div
                 key={item._id || index}
-                className="p-3 border border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100"
+                className="p-3 border border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 flex items-center gap-3"
               >
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-12 h-12 object-cover rounded"
+                  />
+                )}
                 <p className="font-medium">{item.name}</p>
-                <p className="text-xs text-gray-500 truncate">{item.image}</p>
               </div>
             ))}
           </div>
@@ -59,30 +66,66 @@ const CocCard = ({ data }) => {
               Ingredient Actions
             </h3>
           </div>
-          <div className="space-y-3">
-            {data.ingredients.map((ingredient, iIndex) =>
-              ingredient.actions.map((action, aIndex) => (
-                <div
-                  key={`${ingredient._id || iIndex}-${action._id || aIndex}`}
-                  className="p-3 border border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100"
-                >
-                  <p>
-                    <span className="font-medium">Action:</span> {action.action}
-                  </p>
-                  <p>
-                    <span className="font-medium">Status:</span> {action.status}
-                  </p>
-                  <p>
-                    <span className="font-medium">Tool:</span> {action.tool}
-                  </p>
+          <div className="space-y-4">
+            {data.ingredients.map((ingredient, iIndex) => (
+              <div
+                key={ingredient._id || iIndex}
+                className="p-4 border border-gray-300 rounded-lg bg-gray-50"
+              >
+                {/* Ingredient Header */}
+                <div className="flex items-center gap-3 mb-3">
+                  {ingredient.path && (
+                    <img
+                      src={ingredient.path}
+                      alt={ingredient.name}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  )}
+                  <p className="font-semibold text-lg">{ingredient.name}</p>
                 </div>
-              ))
-            )}
+
+                {/* Used Information */}
+                {ingredient.used && (
+                  <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
+                    <span className="font-medium">Used:</span>
+                    <img
+                      src={ingredient.used.image}
+                      alt={ingredient.used.name}
+                      className="w-6 h-6 object-cover rounded"
+                    />
+                    <span>{ingredient.used.name}</span>
+                  </div>
+                )}
+
+                {/* Actions */}
+                <div className="space-y-2">
+                  {ingredient.actions.map((action, aIndex) => (
+                    <div
+                      key={`${iIndex}-${aIndex}`}
+                      className="p-2 border border-gray-200 rounded bg-white"
+                    >
+                      <p>
+                        <span className="font-medium">Action:</span>{" "}
+                        {action.action}
+                      </p>
+                      <p>
+                        <span className="font-medium">Status:</span>{" "}
+                        {action.status}
+                      </p>
+                      <p>
+                        <span className="font-medium">Tool:</span> {action.tool}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
 
-      {data?.invalidReasons && (
+      {/* Invalid Reasons */}
+      {data?.invalidReasons && data.invalidReasons.length > 0 && (
         <div className="mt-6 p-4 bg-red-100 text-red-800 rounded-lg text-sm">
           <div className="flex items-center gap-2 mb-2">
             <FaExclamationTriangle className="text-red-600" />
