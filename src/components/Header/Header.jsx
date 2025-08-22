@@ -51,30 +51,35 @@ const Header = ({ onMenuClick }) => {
 
       <div className="relative" ref={dropdownRef}>
         <section className="flex items-center gap-4">
-
           {!isMobile && (
             <div className="flex flex-col justify-center">
               <h1 className="text-xl font-bold text-gray-900 leading-tight">
                 {admin.firstName} {admin.lastName}
               </h1>
-              <p className="text-sm text-gray-600 font-medium">Head Teacher</p>
+              <p className="text-sm text-gray-600 font-medium">
+                {admin.position}
+              </p>
             </div>
           )}
-          
+
           <div
             className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold uppercase cursor-pointer hover:bg-gray-700 transition duration-200"
             onClick={handleToggleDropdown}
             title="Account Options"
           >
             <span>
-              {admin.firstName?.[0] ?? ''}{admin.lastName?.[0] ?? ''}
+              {admin.firstName?.[0] ?? ""}
+              {admin.lastName?.[0] ?? ""}
             </span>
           </div>
         </section>
         {isDropdownOpen && (
           <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md z-10">
             <ul className="flex flex-col">
-              <Link to="/dashboard/profile" onClick={() => setIsDropdownOpen(false)}>
+              <Link
+                to="/dashboard/profile"
+                onClick={() => setIsDropdownOpen(false)}
+              >
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                   Profile
                 </li>

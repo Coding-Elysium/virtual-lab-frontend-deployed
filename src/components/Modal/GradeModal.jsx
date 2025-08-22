@@ -46,7 +46,9 @@ export default function GradeModal({ onClose, id, data, type }) {
       "overallPresentation",
     ];
 
-    const missingFields = requiredFields.filter((field) => !formData[field]?.trim());
+    const missingFields = requiredFields.filter(
+      (field) => !String(formData[field] ?? "").trim()
+    );
 
     if (missingFields.length > 0) {
       alert("Please fill in all required fields.");
@@ -63,7 +65,6 @@ export default function GradeModal({ onClose, id, data, type }) {
       onClose();
     }
   };
-
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

@@ -7,10 +7,9 @@ import AddAdminForm from "../components/Form/AddAdminForm";
 const Profile = () => {
   const { admin, loading } = authStore();
 
+  console.log(`admin ================== ${JSON.stringify(admin)}`);
   if (loading) {
-    return (
-      <div className="text-center py-8">Loading...</div>
-    );
+    return <div className="text-center py-8">Loading...</div>;
   }
 
   return (

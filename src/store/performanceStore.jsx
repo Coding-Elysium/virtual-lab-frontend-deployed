@@ -29,7 +29,7 @@ export const usePerformanceStore = create((set) => ({
       );
 
       set({
-        performance: res.data,
+        performance: res.data.data || res.data,
         loading: false,
       });
     } catch (error) {
