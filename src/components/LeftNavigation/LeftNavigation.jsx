@@ -102,11 +102,11 @@ const LeftNavigation = () => {
             icon={<FaUserGraduate />}
             title="Student List"
           />
-          <MenuItem
+          {/* <MenuItem
             to="/dashboard/studentRetake"
             icon={<FaChalkboardTeacher />}
             title="Retake Student"
-          />
+          /> */}
           <MenuItem
             to="/dashboard/addAdmin"
             icon={<FaUserCog />}
@@ -116,6 +116,11 @@ const LeftNavigation = () => {
             to="/dashboard/adminList"
             icon={<FaUserShield />}
             title="Admin List"
+          />
+          <MenuItem
+            to="/dashboard/forgotPassword"
+            icon={<FaUserShield />}
+            title="Forgot Password Request"
           />
         </>
       )}

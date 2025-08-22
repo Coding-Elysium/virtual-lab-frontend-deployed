@@ -13,6 +13,7 @@ import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Profile from "../pages/Profile";
 import StudentRetake from "../pages/StudentRetake";
 import StudentPerformance from "../pages/StudentPerformance";
+import ForgotPassword from "../pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "forgotPassword",
+        element: <ForgotPassword />,
       },
     ],
   },
