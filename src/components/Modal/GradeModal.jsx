@@ -32,6 +32,40 @@ export default function GradeModal({ onClose, id, data, type }) {
     }));
   };
 
+  // const handleSubmit = async () => {
+  //   const requiredFields = [
+  //     "useTools",
+  //     "procedure",
+  //     "safety",
+  //     "product",
+  //     "timeManagement",
+  //     "properBalance",
+  //     "useOfColor",
+  //     "shape",
+  //     "useOfGarnish",
+  //     "overallPresentation",
+  //   ];
+
+  //   const missingFields = requiredFields.filter(
+  //     (field) => !String(formData[field] ?? "").trim()
+  //   );
+
+  //   if (missingFields.length > 0) {
+  //     alert("Please fill in all required fields.");
+  //     return;
+  //   }
+
+  //   if (data) {
+  //     await updatePerformance(formData);
+  //     window.location.reload();
+  //     onClose();
+  //   } else {
+  //     await addPerformance(formData);
+  //     window.location.reload();
+  //     onClose();
+  //   }
+  // };
+
   const handleSubmit = async () => {
     const requiredFields = [
       "useTools",
@@ -55,14 +89,22 @@ export default function GradeModal({ onClose, id, data, type }) {
       return;
     }
 
-    if (data) {
-      await updatePerformance(formData);
-      window.location.reload();
+    try {
+      if (data) {
+        await updatePerformance(formData);
+      } else {
+        await addPerformance(formData);
+      }
+
+      // ✅ Refresh store data instead of reloading the whole page
+      if (fetchPerformances) {
+        await fetchPerformances(id); // refresh list if your store has this
+      }
+
       onClose();
-    } else {
-      await addPerformance(formData);
-      window.location.reload();
-      onClose();
+    } catch (error) {
+      console.error("Error saving performance:", error);
+      alert("Something went wrong while saving. Please try again.");
     }
   };
 
