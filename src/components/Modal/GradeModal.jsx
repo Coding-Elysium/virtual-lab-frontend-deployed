@@ -96,10 +96,9 @@ export default function GradeModal({ onClose, id, data, type }) {
         await addPerformance(formData);
       }
 
-      // ✅ Refresh store data instead of reloading the whole page
-      if (fetchPerformances) {
-        await fetchPerformances(id); // refresh list if your store has this
-      }
+      // if (fetchPerformances) {
+      //   await fetchPerformances(id);
+      // }
 
       onClose();
     } catch (error) {
