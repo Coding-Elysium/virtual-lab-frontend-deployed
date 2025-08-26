@@ -103,7 +103,7 @@ export default function GradeModal({ onClose, id, data, type }) {
       onClose();
     } catch (error) {
       console.error("Error saving performance:", error);
-      alert("Something went wrong while saving. Please try again.");
+      // alert("Something went wrong while saving. Please try again.");
     }
   };
 
