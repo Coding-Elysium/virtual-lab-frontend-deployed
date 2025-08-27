@@ -14,6 +14,7 @@ import Profile from "../pages/Profile";
 import StudentRetake from "../pages/StudentRetake";
 import StudentPerformance from "../pages/StudentPerformance";
 import ForgotPassword from "../pages/ForgotPassword";
+import ForgotPasswordAdmin from "../pages/ForgotPasswordAdmin";
 
 const router = createBrowserRouter([
   {
@@ -22,13 +23,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element:<ProtectedRoute>
-              <App />
-            </ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",
-        element: <Dashboard />
+        element: <Dashboard />,
       },
       {
         path: "addStudent",
@@ -67,6 +70,10 @@ const router = createBrowserRouter([
         element: <ForgotPassword />,
       },
     ],
+  },
+  {
+    path: "/forgotPasswordAdmin",
+    element: <ForgotPasswordAdmin />,
   },
   {
     path: "*",

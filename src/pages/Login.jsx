@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authStore from "../store/authStore";
 
 const Login = () => {
@@ -14,7 +14,8 @@ const Login = () => {
   const { loginAdmin, loading } = authStore();
 
   const handleSignIn = async () => {
-    if (!username || !password) return alert("Please enter username and password.");
+    if (!username || !password)
+      return alert("Please enter username and password.");
 
     await loginAdmin({ username, password });
 
@@ -30,7 +31,6 @@ const Login = () => {
       setPassword("");
     }
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -78,9 +78,12 @@ const Login = () => {
               <input type="checkbox" className="accent-indigo-500" />
               Remember
             </label>
-            <a href="#" className="text-indigo-500 hover:underline">
+            <Link
+              to="/forgotPasswordAdmin"
+              className="text-indigo-500 hover:underline"
+            >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           <button
