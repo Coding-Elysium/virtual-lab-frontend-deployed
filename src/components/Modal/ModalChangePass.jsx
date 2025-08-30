@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputField from "../TextField/InputField";
-import SelectField from "../TextField/SelectField";
-import crudStudentStore from "../../store/crudStudent";
+import passwordStore from "../../store/passwordStore";
+import Modal from "./Modal";
 
-export default function ModalChangePass({ isOpen, onClose, user }) {
-  const [formData, setFormData] = useState({
-    password: "",
-  });
+export default function ModalChangePass({ isOpen, onClose, requestId, admin }) {
+  const [formData, setFormData] = useState({ newPassword: "" });
+  const { setPasswordAdmin } = passwordStore();
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -16,22 +18,39 @@ export default function ModalChangePass({ isOpen, onClose, user }) {
   };
 
   const handleSubmit = async () => {
-    console.log("Password changed");
+    try {
+      const res = await setPasswordAdmin(requestId, formData.newPassword);
+      setModalMessage(res.message);
+      setModalType("success");
+      setShowModal(true);
+      onClose();
+    } catch (error) {
+      setModalMessage(error.message);
+      setModalType("error");
+      setShowModal(true);
+    }
   };
 
-  if (!isOpen || !user) return null;
+  if (!isOpen || !admin) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white rounded-md p-6 w-full max-w-md shadow-md">
         <h2 className="text-xl font-semibold mb-4">Change Password</h2>
 
+        <p className="mb-4 text-gray-600">
+          Reset password for{" "}
+          <strong>
+            {admin.firstName} {admin.lastName}
+          </strong>
+        </p>
+
         <div className="flex flex-col gap-4 mb-6">
           <InputField
-            label="Password"
-            name="password"
+            label="New Password"
+            name="newPassword"
             type="password"
-            value={formData.password}
+            value={formData.newPassword}
             onChange={handleChange}
             required
           />
@@ -45,16 +64,22 @@ export default function ModalChangePass({ isOpen, onClose, user }) {
             Cancel
           </button>
           <button
-            onClick={() => {
-              handleSubmit();
-              onClose();
-            }}
+            onClick={handleSubmit}
             className="py-2 px-4 text-white background-primary-color rounded-sm hover:opacity-80"
           >
             Set Password
           </button>
         </div>
       </div>
+
+      <Modal
+        show={showModal}
+        type={modalType}
+        message={modalMessage}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
     </div>
   );
 }

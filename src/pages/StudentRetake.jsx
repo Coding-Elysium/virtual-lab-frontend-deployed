@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import DashboardHeader from "../components/Header/DashboardHeader";
-import { useMediaQuery } from 'react-responsive';
-import SearchField from '../components/TextField/SearchField';
-import { Link } from 'react-router-dom';
+import { useMediaQuery } from "react-responsive";
+import SearchField from "../components/TextField/SearchField";
+import { Link } from "react-router-dom";
 
 const StudentRetake = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -25,26 +25,26 @@ const StudentRetake = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-                <div
-                  className="p-4 bg-white shadow-md rounded-md border border-gray-200"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="rounded-full w-12 h-12 bg-gray-600 flex items-center justify-center text-white text-lg font-bold">
-                      JC
+              <div className="p-4 bg-white shadow-md rounded-md border border-gray-200">
+                <div className="flex items-center gap-4">
+                  <div className="rounded-full w-12 h-12 bg-gray-600 flex items-center justify-center text-white text-lg font-bold">
+                    JC
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold">
+                      John Carlo Abanes
                     </div>
-                    <div>
-                      <div className="text-base font-semibold">
-                        John Carlo Abanes
-                      </div>
-                      <div className="text-sm text-gray-500">abierajc0707@gmail.com</div>
+                    <div className="text-sm text-gray-500">
+                      abierajc0707@gmail.com
                     </div>
                   </div>
-                  <div className="mt-2 text-sm">
-                    <div>LRN: 123123123123</div>
-                    <div>Grade Level: Junior High School</div>
-                    <div>Gender: Male</div>
-                  </div>
-                  {/* <div className="mt-3 flex gap-4 text-sm justify-end">
+                </div>
+                <div className="mt-2 text-sm">
+                  <div>LRN: 123123123123</div>
+                  <div>Grade Level: Junior High School</div>
+                  <div>Gender: Male</div>
+                </div>
+                {/* <div className="mt-3 flex gap-4 text-sm justify-end">
                     <button
                       className="text-white background-primary-color py-2 px-4 rounded-sm hover:opacity-90"
                       onClick={() => {
@@ -60,9 +60,8 @@ const StudentRetake = () => {
                       </button>
                     </Link>
                   </div> */}
-                </div>
+              </div>
               {/* <div ref={loadMoreRef} className="h-8"></div> */}
-             
             </div>
           </>
         ) : (
@@ -90,51 +89,47 @@ const StudentRetake = () => {
                 </tr>
               </thead>
               <tbody>
-                  <tr
-                    className="bg-white border-b border-gray-300 hover:bg-gray-50"
+                <tr className="bg-white border-b border-gray-300 hover:bg-gray-50">
+                  <th
+                    scope="row"
+                    className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
                   >
-                    <th
-                      scope="row"
-                      className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
-                    >
-                      <div className="rounded-full w-10 h-10 bg-gray-600 flex items-center justify-center text-white text-sm font-medium">
-                        JC
+                    <div className="rounded-full w-10 h-10 bg-gray-600 flex items-center justify-center text-white text-sm font-medium">
+                      JC
+                    </div>
+                    <div className="ps-3">
+                      <div className="text-base font-semibold">
+                        John Carlo Abanes
                       </div>
-                      <div className="ps-3">
-                        <div className="text-base font-semibold">
-                          John Carlo Abanes
-                        </div>
-                        <div className="font-normal text-gray-500">
-                          jcabiera07@gmail.com
-                        </div>
+                      <div className="font-normal text-gray-500">
+                        jcabiera07@gmail.com
                       </div>
-                    </th>
-                    <td className="px-6 py-4">456456466</td>
-                    <td className="px-6 py-4">1</td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-6">
-                        <button
-                          className="text-green-600 hover:underline font-medium"
-                          onClick={() => handleApprove(user._id)}
-                        >
-                          Approve
-                        </button>
-                        <button
-                          className="text-red-600 hover:underline font-medium"
-                          onClick={() => handleDeny(user._id)}
-                        >
-                          Deny
-                        </button>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <Link
-                        className="font-medium primary-color hover:underline"
+                    </div>
+                  </th>
+                  <td className="px-6 py-4">456456466</td>
+                  <td className="px-6 py-4">1</td>
+                  <td className="px-6 py-4">
+                    <div className="flex gap-6">
+                      <button
+                        className="text-green-600 hover:underline font-medium"
+                        onClick={() => handleApprove(user._id)}
                       >
-                        View Profile
-                      </Link>
-                    </td>
-                  </tr>
+                        Approve
+                      </button>
+                      <button
+                        className="text-red-600 hover:underline font-medium"
+                        onClick={() => handleDeny(user._id)}
+                      >
+                        Deny
+                      </button>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <Link className="font-medium primary-color hover:underline">
+                      View Profile
+                    </Link>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -143,7 +138,7 @@ const StudentRetake = () => {
         )}
       </>
     </section>
-  )
-}
+  );
+};
 
-export default StudentRetake
+export default StudentRetake;

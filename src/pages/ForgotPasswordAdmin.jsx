@@ -1,9 +1,28 @@
 import React, { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import passwordStore from "../store/passwordStore";
+import Modal from "../components/Modal/Modal";
 
 const ForgotPasswordAdmin = ({ onBack }) => {
-  const [username, setUsername] = useState("");
+  const { requestPasswordAdmin } = passwordStore();
+  const [employeeNumber, setEmployeeNumber] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const handleRequestPassword = async () => {
+    try {
+      const res = await requestPasswordAdmin({ employeeNumber });
+      setModalMessage(res.message);
+      setModalType("success");
+      setShowModal(true);
+    } catch (err) {
+      setModalMessage(err.message);
+      setModalType("error");
+      setShowModal(true);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -28,21 +47,30 @@ const ForgotPasswordAdmin = ({ onBack }) => {
             <label className="block text-sm font-medium mb-1">Username</label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter Username"
+              value={employeeNumber}
+              onChange={(e) => setEmployeeNumber(e.target.value)}
+              placeholder="Enter Employee Number"
               className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
 
           <button
-            onClick={() => console.log("Hello")}
-            className="w-full background-primary-color bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-white py-2 rounded-md font-semibold"
+            onClick={handleRequestPassword}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-white py-2 rounded-md font-semibold"
           >
             Request to Super Admin
           </button>
         </div>
       </div>
+
+      <Modal
+        show={showModal}
+        type={modalType}
+        message={modalMessage}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
     </div>
   );
 };
