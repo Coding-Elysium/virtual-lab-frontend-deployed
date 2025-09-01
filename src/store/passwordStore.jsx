@@ -25,12 +25,20 @@ const passwordStore = create((set) => ({
     }
   },
 
-  setPasswordStudent: async (newPassword) => {
+  setPasswordStudent: async (requestId, newPassword) => {
     try {
-      set({ password: newPassword });
-      console.log("Student password set successfully");
+      const res = await axios.post(
+        `${BASEURL}/password/student/setNewPassword/${requestId}`,
+        { newPassword }
+      );
+
+      return res.data;
     } catch (error) {
-      console.error("Error setting password:", error);
+      if (error.response) {
+        throw new Error(error.response.data.message || "Server error");
+      } else {
+        throw new Error("Network error, please try again.");
+      }
     }
   },
 

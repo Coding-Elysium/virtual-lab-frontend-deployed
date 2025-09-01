@@ -3,9 +3,15 @@ import InputField from "../TextField/InputField";
 import passwordStore from "../../store/passwordStore";
 import Modal from "./Modal";
 
-export default function ModalChangePass({ isOpen, onClose, requestId, admin }) {
+export default function ModalChangePass({
+  isOpen,
+  onClose,
+  requestId,
+  admin,
+  student,
+}) {
   const [formData, setFormData] = useState({ newPassword: "" });
-  const { setPasswordAdmin } = passwordStore();
+  const { setPasswordAdmin, setPasswordStudent } = passwordStore();
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -19,11 +25,19 @@ export default function ModalChangePass({ isOpen, onClose, requestId, admin }) {
 
   const handleSubmit = async () => {
     try {
-      const res = await setPasswordAdmin(requestId, formData.newPassword);
-      setModalMessage(res.message);
-      setModalType("success");
-      setShowModal(true);
-      onClose();
+      if (admin) {
+        const res = await setPasswordAdmin(requestId, formData.newPassword);
+        setModalMessage(res.message);
+        setModalType("success");
+        setShowModal(true);
+        onClose();
+      } else {
+        const res = await setPasswordStudent(requestId, formData.newPassword);
+        setModalMessage(res.message);
+        setModalType("success");
+        setShowModal(true);
+        onClose();
+      }
     } catch (error) {
       setModalMessage(error.message);
       setModalType("error");
@@ -31,7 +45,7 @@ export default function ModalChangePass({ isOpen, onClose, requestId, admin }) {
     }
   };
 
-  if (!isOpen || !admin) return null;
+  if (!isOpen || (!admin && !student)) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -41,7 +55,9 @@ export default function ModalChangePass({ isOpen, onClose, requestId, admin }) {
         <p className="mb-4 text-gray-600">
           Reset password for{" "}
           <strong>
-            {admin.firstName} {admin.lastName}
+            {admin
+              ? `${admin.firstName} ${admin.lastName}`
+              : `${student.firstName} ${student.lastName}`}
           </strong>
         </p>
 

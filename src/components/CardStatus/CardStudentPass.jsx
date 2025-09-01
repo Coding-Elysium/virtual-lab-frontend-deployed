@@ -19,8 +19,9 @@ const CardStudentPass = ({ data }) => {
       </div>
 
       <button
-        className="w-full px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
+        className="w-full px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition cursor-pointer"
         onClick={() => setIsOpenChange(true)}
+        // onClick={() => console.log("Change Password clicked")}
       >
         Change Password
       </button>
@@ -28,7 +29,8 @@ const CardStudentPass = ({ data }) => {
         <ModalChangePass
           isOpen={isOpenChange}
           onClose={() => setIsOpenChange(false)}
-          user={{ id: 1, name: "John Carlo Abanes", password: "123123123123" }}
+          requestId={data._id}
+          student={data.studentId}
         />
       )}
     </div>
