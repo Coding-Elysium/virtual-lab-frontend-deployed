@@ -7,8 +7,8 @@ const AddIngredientForm = () => {
     name: "",
     type: "",
     category: "",
-    validactions: [],
-    invalidactions: [],
+    validactions: "",
+    invalidactions: "",
     image: null,
   });
 
@@ -33,12 +33,6 @@ const AddIngredientForm = () => {
 
     if (name === "image") {
       setFormData({ ...formData, image: files[0] });
-    } else if (name === "validactions" || name === "invalidactions") {
-      const actionsArray = value
-        .split(",")
-        .map((a) => a.trim())
-        .filter((a) => a !== "");
-      setFormData({ ...formData, [name]: actionsArray });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -54,12 +48,18 @@ const AddIngredientForm = () => {
       payload.append("type", formData.type);
       payload.append("category", formData.category);
 
-      formData.validactions.forEach((action) =>
-        payload.append("validactions[]", action)
-      );
-      formData.invalidactions.forEach((action) =>
-        payload.append("invalidactions[]", action)
-      );
+      // Convert here into arrays
+      formData.validactions
+        .split(",")
+        .map((a) => a.trim())
+        .filter((a) => a !== "")
+        .forEach((action) => payload.append("validactions[]", action));
+
+      formData.invalidactions
+        .split(",")
+        .map((a) => a.trim())
+        .filter((a) => a !== "")
+        .forEach((action) => payload.append("invalidactions[]", action));
 
       if (formData.image) {
         payload.append("image", formData.image);
@@ -74,8 +74,8 @@ const AddIngredientForm = () => {
         name: "",
         type: "",
         category: "",
-        validactions: [],
-        invalidactions: [],
+        validactions: "",
+        invalidactions: "",
         image: null,
       });
     } catch (err) {
@@ -142,8 +142,8 @@ const AddIngredientForm = () => {
       <input
         type="text"
         name="validactions"
-        placeholder="Actions (comma-separated)"
-        value={formData.validactions.join(", ")}
+        placeholder="Valid Actions"
+        value={formData.validactions}
         onChange={handleChange}
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
@@ -151,8 +151,8 @@ const AddIngredientForm = () => {
       <input
         type="text"
         name="invalidactions"
-        placeholder="Actions (comma-separated)"
-        value={formData.invalidactions.join(", ")}
+        placeholder="Invalid Actions"
+        value={formData.invalidactions}
         onChange={handleChange}
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
