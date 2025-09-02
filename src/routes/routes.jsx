@@ -15,6 +15,7 @@ import StudentRetake from "../pages/StudentRetake";
 import StudentPerformance from "../pages/StudentPerformance";
 import ForgotPassword from "../pages/ForgotPassword";
 import ForgotPasswordAdmin from "../pages/ForgotPasswordAdmin";
+import AddIngredientForm from "../components/Form/AddIngredientForm";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "forgotPassword",
         element: <ForgotPassword />,
+      },
+      {
+        path: "addIngredient",
+        element: <AddIngredientForm />,
       },
     ],
   },
