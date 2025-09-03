@@ -5,10 +5,7 @@ import { BASEURL } from "../../helper/helper";
 const AddIngredientForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    type: "",
     category: "",
-    validactions: "",
-    invalidactions: "",
     image: null,
   });
 
@@ -45,21 +42,20 @@ const AddIngredientForm = () => {
     try {
       const payload = new FormData();
       payload.append("name", formData.name);
-      payload.append("type", formData.type);
       payload.append("category", formData.category);
 
       // Convert here into arrays
-      formData.validactions
-        .split(",")
-        .map((a) => a.trim())
-        .filter((a) => a !== "")
-        .forEach((action) => payload.append("validactions[]", action));
+      // formData.validactions
+      //   .split(",")
+      //   .map((a) => a.trim())
+      //   .filter((a) => a !== "")
+      //   .forEach((action) => payload.append("validactions[]", action));
 
-      formData.invalidactions
-        .split(",")
-        .map((a) => a.trim())
-        .filter((a) => a !== "")
-        .forEach((action) => payload.append("invalidactions[]", action));
+      // formData.invalidactions
+      //   .split(",")
+      //   .map((a) => a.trim())
+      //   .filter((a) => a !== "")
+      //   .forEach((action) => payload.append("invalidactions[]", action));
 
       if (formData.image) {
         payload.append("image", formData.image);
@@ -106,7 +102,7 @@ const AddIngredientForm = () => {
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
-      <select
+      {/* <select
         name="type"
         value={formData.type}
         onChange={handleChange}
@@ -117,7 +113,7 @@ const AddIngredientForm = () => {
         <option value="coc1">Coc 1</option>
         <option value="coc2">Coc 2</option>
         <option value="coc3">Coc 3</option>
-      </select>
+      </select> */}
 
       <select
         name="category"
@@ -139,7 +135,7 @@ const AddIngredientForm = () => {
         )}
       </select>
 
-      <input
+      {/* <input
         type="text"
         name="validactions"
         placeholder="Valid Actions"
@@ -155,7 +151,7 @@ const AddIngredientForm = () => {
         value={formData.invalidactions}
         onChange={handleChange}
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
+      /> */}
 
       <input
         type="file"
