@@ -12,10 +12,10 @@ import PendingStudent from "../pages/PendingStudent";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import Profile from "../pages/Profile";
 import StudentRetake from "../pages/StudentRetake";
-import StudentPerformance from "../pages/StudentPerformance";
 import ForgotPassword from "../pages/ForgotPassword";
 import ForgotPasswordAdmin from "../pages/ForgotPasswordAdmin";
 import AddIngredientForm from "../components/Form/AddIngredientForm";
+import AddTools from "../components/Form/AddTools";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "addIngredient",
         element: <AddIngredientForm />,
+      },
+      {
+        path: "addTools",
+        element: <AddTools />,
       },
     ],
   },
