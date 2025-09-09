@@ -5,20 +5,43 @@ import { BASEURL } from "../../helper/helper";
 const AddTools = () => {
   const [formData, setFormData] = useState({
     name: "",
-    actions: "",
+    actions: [],
     image: null,
   });
 
+  const [actionInput, setActionInput] = useState("");
   const [status, setStatus] = useState({ success: null, message: "" });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, files, value } = e.target;
 
     if (name === "image") {
       setFormData({ ...formData, image: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
     }
+  };
+
+  // Add action when pressing Enter
+  const handleActionKeyDown = (e) => {
+    if (e.key === "Enter" && actionInput.trim() !== "") {
+      e.preventDefault();
+      if (!formData.actions.includes(actionInput.trim())) {
+        setFormData({
+          ...formData,
+          actions: [...formData.actions, actionInput.trim()],
+        });
+      }
+      setActionInput("");
+    }
+  };
+
+  // Remove an action chip
+  const removeAction = (actionToRemove) => {
+    setFormData({
+      ...formData,
+      actions: formData.actions.filter((a) => a !== actionToRemove),
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -29,11 +52,9 @@ const AddTools = () => {
       const payload = new FormData();
       payload.append("name", formData.name);
 
-      formData.actions
-        .split(",")
-        .map((a) => a.trim())
-        .filter((a) => a !== "")
-        .forEach((action) => payload.append("actions[]", action));
+      formData.actions.forEach((action) =>
+        payload.append("actions[]", action)
+      );
 
       if (formData.image) {
         payload.append("image", formData.image);
@@ -44,11 +65,7 @@ const AddTools = () => {
       });
 
       setStatus({ success: true, message: res.data.message });
-      setFormData({
-        name: "",
-        actions: "",
-        image: null,
-      });
+      setFormData({ name: "", actions: [], image: null });
     } catch (err) {
       const msg =
         err.response?.data?.message ||
@@ -67,6 +84,7 @@ const AddTools = () => {
         Add New Kitchen Tool
       </h2>
 
+      {/* Tool Name */}
       <input
         type="text"
         name="name"
@@ -77,16 +95,36 @@ const AddTools = () => {
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
-      <input
-        type="text"
-        name="actions"
-        placeholder="Actions (comma-separated)"
-        value={formData.actions}
-        onChange={handleChange}
-        required
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
+      {/* Actions as tags */}
+      <div>
+        <input
+          type="text"
+          placeholder="Type action and press Enter"
+          value={actionInput}
+          onChange={(e) => setActionInput(e.target.value)}
+          onKeyDown={handleActionKeyDown}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <div className="flex flex-wrap mt-2 gap-2">
+          {formData.actions.map((action, idx) => (
+            <span
+              key={idx}
+              className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center"
+            >
+              {action}
+              <button
+                type="button"
+                onClick={() => removeAction(action)}
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+        </div>
+      </div>
 
+      {/* Upload Image */}
       <input
         type="file"
         name="image"
@@ -97,6 +135,7 @@ const AddTools = () => {
                    file:text-blue-700 hover:file:bg-blue-100"
       />
 
+      {/* Submit Button */}
       <button
         type="submit"
         className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
@@ -104,6 +143,7 @@ const AddTools = () => {
         Add Kitchen Tool
       </button>
 
+      {/* Status Message */}
       {status.message && (
         <p
           className={`text-sm mt-2 ${
