@@ -17,8 +17,6 @@ const ViewProfile = () => {
   const [grade, setGrade] = useState(false);
   const { fetchPerformance, performance } = usePerformanceStore();
 
-  // console.log(`PERFOMANCE ================== ${performance?.useTools}`);
-
   useEffect(() => {
     if (_id) {
       fetchProfile(_id);
