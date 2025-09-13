@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  FaTools,
-  FaList,
-  FaExclamationTriangle,
-} from "react-icons/fa";
-import {
-  capitalizeEachWord,
-  capitalizeWords,
-} from "../../helper/helper";
+import { FaTools, FaList, FaExclamationTriangle } from "react-icons/fa";
+import { capitalizeEachWord, capitalizeWords } from "../../helper/helper";
 
 const CocCard = ({ data }) => {
   return (
@@ -84,7 +77,9 @@ const CocCard = ({ data }) => {
                 {/* Ingredient Header */}
                 <div className="flex items-center gap-4 mb-4">
                   <img
-                    src={ingredient.image || ingredient.path || "/placeholder.png"}
+                    src={
+                      ingredient.image || ingredient.path || "/placeholder.png"
+                    }
                     alt={ingredient.name}
                     className="w-12 h-12 object-cover rounded"
                   />
@@ -181,18 +176,41 @@ const CocCard = ({ data }) => {
         </div>
       )}
 
-      {/* Invalid Reasons */}
+      {/* Procedure Validation Feedback */}
       {data?.invalidReasons?.length > 0 && (
-        <div className="mt-8 p-4 bg-red-50 border border-red-300 text-red-800 rounded-lg text-sm">
-          <div className="flex items-center gap-2 mb-2">
-            <FaExclamationTriangle className="text-red-600" />
-            <span className="font-semibold text-base">Invalid Reasons</span>
-          </div>
-          <ul className="list-disc pl-6 space-y-1">
-            {data.invalidReasons.map((reason, index) => (
-              <li key={index}>{reason.trim()}</li>
-            ))}
-          </ul>
+        <div className="mt-8 space-y-4">
+          {/* Valid Steps */}
+          {data.invalidReasons.some((reason) => reason.startsWith("✅")) && (
+            <div className="p-4 bg-green-50 border border-green-300 text-green-800 rounded-lg text-sm">
+              <div className="font-semibold text-base mb-2">Valid Steps</div>
+              <ul className="list-disc pl-6 space-y-1">
+                {data.invalidReasons
+                  .filter((reason) => reason.startsWith("✅"))
+                  .map((reason, index) => (
+                    <li key={`valid-${index}`}>
+                      {reason.replace("✅ ", "").trim()}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Invalid Reasons */}
+          {data.invalidReasons.some((reason) => !reason.startsWith("✅")) && (
+            <div className="p-4 bg-red-50 border border-red-300 text-red-800 rounded-lg text-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <FaExclamationTriangle className="text-red-600" />
+                <span className="font-semibold text-base">Invalid Reasons</span>
+              </div>
+              <ul className="list-disc pl-6 space-y-1">
+                {data.invalidReasons
+                  .filter((reason) => !reason.startsWith("✅"))
+                  .map((reason, index) => (
+                    <li key={`invalid-${index}`}>{reason.trim()}</li>
+                  ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -2,6 +2,8 @@
 export const BASEURL = "https://virtual-lab-backend-t0qj.onrender.com";
 
 export const capitalizeWords = (str) => {
+  if (typeof str !== "string") return "";
+
   return str
     .toLowerCase()
     .split(" ")
