@@ -16,6 +16,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ForgotPasswordAdmin from "../pages/ForgotPasswordAdmin";
 import AddIngredientForm from "../components/Form/AddIngredientForm";
 import AddTools from "../components/Form/AddTools";
+import AddCommonIngredient from "../components/Form/AddCommonIngredient";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "addTools",
         element: <AddTools />,
+      },
+      {
+        path: "addCommonIngredients",
+        element: <AddCommonIngredient />,
       },
     ],
   },

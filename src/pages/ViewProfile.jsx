@@ -130,7 +130,12 @@ const ViewProfile = () => {
               <div className="mt-3 md:mt-0">
                 <button
                   onClick={() => setGrade(true)}
-                  className="w-full sm:w-auto py-2 px-4 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors cursor-pointer"
+                  disabled={images.length === 0}  
+                  className={`w-full sm:w-auto py-2 px-4 text-white rounded-md text-sm font-medium transition-colors ${
+                    images.length === 0
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-indigo-600 hover:bg-indigo-700 cursor-pointer'
+                  }`}
                 >
                   Grade Performance
                 </button>
