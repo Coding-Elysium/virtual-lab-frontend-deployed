@@ -38,7 +38,7 @@ const Login = () => {
         <div className="flex flex-col items-center mb-6">
           <div className="text-3xl text-indigo-500 mb-1">🎓</div>
           <h1 className="text-xl font-bold">VIRTUAL LAB SIMULATOR</h1>
-          <p className="text-sm text-gray-600 mt-1">Sign in to your account</p>
+          <p className="text-sm text-gray-600 mt-1">Sign in your account</p>
         </div>
 
         <div className="space-y-4">
